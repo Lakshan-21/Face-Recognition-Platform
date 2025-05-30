@@ -218,8 +218,8 @@ export default function FaceRegistrationForm() {
         </div>
 
         <div style={{ marginBottom: '24px' }}>
-          <label 
-            htmlFor="department" 
+          <label
+            htmlFor="department"
             style={{ 
               display: 'block', 
               fontSize: '14px', 
@@ -227,7 +227,7 @@ export default function FaceRegistrationForm() {
               color: '#ffffff', 
               marginBottom: '8px' 
             }}
-          >Department </label>
+            className="text-[#71767b]">Department </label>
           <input
             id="department"
             type="text"
