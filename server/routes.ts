@@ -257,6 +257,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       } else if (lowerMessage.includes("how many") && lowerMessage.includes("registered")) {
         response = `There are currently ${registrations.length} people registered in the system.`;
+      } else if (lowerMessage.includes("recent activity") || lowerMessage.includes("show me recent") || lowerMessage.includes("recent events")) {
+        const recentRegistrations = await storage.getRecentFaceRegistrations(3);
+        const recentRecognitions = await storage.getRecentRecognitionEvents(5);
+        
+        let activityReport = "Recent Activity:\n\n";
+        
+        if (recentRegistrations.length > 0) {
+          activityReport += "Latest Registrations:\n";
+          recentRegistrations.forEach((reg: any, index: number) => {
+            const date = new Date(reg.registeredAt).toLocaleString();
+            activityReport += `${index + 1}. ${reg.name} (${reg.role}) - ${date}\n`;
+          });
+          activityReport += "\n";
+        }
+        
+        if (recentRecognitions.length > 0) {
+          activityReport += "Recent Face Recognition Events:\n";
+          recentRecognitions.forEach((event: any, index: number) => {
+            const date = new Date(event.detectedAt).toLocaleString();
+            activityReport += `${index + 1}. ${event.personName} detected - ${date}\n`;
+          });
+        }
+        
+        response = activityReport || "No recent activity found.";
       } else if (lowerMessage.includes("statistics") || lowerMessage.includes("stats")) {
         response = `System Statistics: ${stats.totalDetections} total detections, ${stats.recognizedFaces} recognized faces, ${stats.unknownFaces} unknown faces, with an average confidence of ${stats.averageConfidence}%.`;
       } else if (lowerMessage.includes("when was") && lowerMessage.includes("registered")) {
