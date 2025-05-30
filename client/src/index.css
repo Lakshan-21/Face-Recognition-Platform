@@ -134,6 +134,45 @@ h1, h2, h3, .title {
   padding: 4px 8px !important;
 }
 
+/* Fix white elements - Force dark theme */
+div, span, p, li, ul, ol {
+  background-color: transparent !important;
+}
+
+/* Registration cards and items */
+[class*="registration"], [class*="user"], .user-card, .registration-item {
+  background-color: #16181C !important;
+  color: #E7E9EA !important;
+  border: 1px solid #2F3336 !important;
+}
+
+/* Any remaining white backgrounds */
+*:not(input):not(textarea):not(select) {
+  background-color: transparent !important;
+}
+
+/* Override any white text on dark backgrounds */
+.text-white {
+  color: #E7E9EA !important;
+}
+
+/* Specific fixes for the registration cards */
+.space-y-4 > div, .space-y-2 > div {
+  background-color: #16181C !important;
+  border: 1px solid #2F3336 !important;
+  border-radius: 16px !important;
+}
+
+/* Avatar and user info styling */
+.flex.items-center {
+  background-color: transparent !important;
+}
+
+/* Time stamps and secondary info */
+.text-sm, .text-muted-foreground {
+  color: #71767B !important;
+}
+
 .dark {
   --background: 0 0 0; /* #000000 - X's pure black */
   --foreground: 247 249 249; /* #F7F9F9 - X's light text */
