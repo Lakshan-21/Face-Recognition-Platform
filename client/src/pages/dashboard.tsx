@@ -6,6 +6,7 @@ import WebcamFeed from "@/components/webcam-feed";
 import FaceRegistrationForm from "@/components/face-registration-form";
 import LiveRecognition from "@/components/live-recognition";
 import ChatInterface from "@/components/chat-interface";
+import PredictiveSearch from "@/components/predictive-search";
 import { useQuery } from "@tanstack/react-query";
 import { Circle } from "lucide-react";
 import faceLogo from "@assets/FACE (1).png";
@@ -45,6 +46,13 @@ export default function Dashboard() {
               </div>
             </div>
             <div className="flex items-center space-x-4">
+              <PredictiveSearch 
+                placeholder="Search registered people..."
+                onSelectPerson={(person) => {
+                  console.log("Selected person:", person);
+                  // Could show person details in a modal or navigate to their profile
+                }}
+              />
               <div className="text-sm text-muted-foreground font-medium">
                 <span className="font-semibold text-[#ffffff]">{(systemStatus as any)?.registrationCount || 0}</span> registered faces
               </div>

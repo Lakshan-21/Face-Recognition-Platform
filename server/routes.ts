@@ -50,6 +50,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/registrations/all", async (req, res) => {
+    try {
+      const registrations = await storage.getAllFaceRegistrations();
+      res.json(registrations);
+    } catch (error) {
+      res.status(500).json({ error: error instanceof Error ? error.message : String(error) });
+    }
+  });
+
   app.get("/api/registrations/recent", async (req, res) => {
     try {
       const recentRegistrations = await storage.getRecentFaceRegistrations(10);
@@ -203,6 +212,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/recognition-events/recent", async (req, res) => {
     try {
       const events = await storage.getRecentRecognitionEvents(50);
+      res.json(events);
+    } catch (error) {
+      res.status(500).json({ error: error instanceof Error ? error.message : String(error) });
+    }
+  });
+
+  app.get("/api/recognition/recent/:limit?", async (req, res) => {
+    try {
+      const limit = parseInt(req.params.limit || "50");
+      const events = await storage.getRecentRecognitionEvents(limit);
       res.json(events);
     } catch (error) {
       res.status(500).json({ error: error instanceof Error ? error.message : String(error) });

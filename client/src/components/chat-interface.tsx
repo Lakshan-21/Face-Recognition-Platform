@@ -19,7 +19,7 @@ interface ChatMessage {
 const sampleQueries = [
   "How many people are registered in the system?",
   "What are today's recognition statistics?",
-  "Show me the latest system activity",
+  "Who was the last person to register?",
   "What is the current system status?",
   "How many face detections happened today?",
 ];
