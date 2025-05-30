@@ -9,6 +9,7 @@ import ChatInterface from "@/components/chat-interface";
 
 import { useQuery } from "@tanstack/react-query";
 import { Circle } from "lucide-react";
+import katomaranLogo from "@assets/katomaran_logo.png";
 import faceLogo from "@assets/FACE (1).png";
 
 type Tab = "registration" | "recognition" | "chat";
@@ -49,8 +50,8 @@ export default function Dashboard() {
               <div className="text-sm text-muted-foreground font-medium">
                 <span className="font-semibold text-[#ffffff]">{(systemStatus as any)?.registrationCount || 0}</span> registered faces
               </div>
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                <Circle className="h-4 w-4 text-primary-foreground" />
+              <div className="w-8 h-8 flex items-center justify-center">
+                <img src={katomaranLogo} alt="Katomaran Logo" className="w-8 h-8 object-contain" />
               </div>
             </div>
           </div>
