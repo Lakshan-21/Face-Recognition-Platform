@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 interface WebcamFeedProps {
   mode: "registration" | "recognition";
   onFaceDetected?: (faceData: any) => void;
+  isActive?: boolean;
 }
 
 interface FaceDetection {
@@ -142,10 +143,11 @@ export default function WebcamFeed({ mode, onFaceDetected }: WebcamFeedProps) {
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
     
-    if (isStreaming) {
-      // Process frames at 5 FPS to avoid overwhelming the system
-      intervalId = setInterval(processFaceDetection, 200);
+    // Only process for registration mode automatically
+    if (isStreaming && mode === "registration") {
+      intervalId = setInterval(processFaceDetection, 1000);
     }
+    // Recognition mode will be controlled manually
 
     return () => {
       if (intervalId) clearInterval(intervalId);

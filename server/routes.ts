@@ -105,24 +105,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Get all registered faces
       const registrations = await storage.getAllFaceRegistrations();
       
-      // Process recognition results based on registered faces in database
+      // Only process if there are registered faces and randomly simulate detection
       const detectedFaces = [];
+      const hasDetection = Math.random() < 0.3; // 30% chance of detection
       
-      if (registrations.length > 0) {
-        // For each registered person, simulate detection with varying confidence
-        for (let i = 0; i < Math.min(registrations.length, 2); i++) {
-          const person = registrations[i];
-          const confidence = 0.75 + Math.random() * 0.2; // 75-95% confidence
-          const isRecognized = confidence > 0.7;
-          
-          detectedFaces.push({
-            bbox: [25 + i * 10, 20 + i * 5, 70 + i * 10, 75 + i * 5],
-            name: isRecognized ? person.name : "Unknown Person",
-            personId: isRecognized ? person.id : null,
-            confidence: Math.round(confidence * 100) / 100,
-            isRecognized: isRecognized
-          });
-        }
+      if (registrations.length > 0 && hasDetection) {
+        // Randomly select a registered person for detection
+        const randomPerson = registrations[Math.floor(Math.random() * registrations.length)];
+        const confidence = 0.75 + Math.random() * 0.2; // 75-95% confidence
+        const isRecognized = confidence > 0.7;
+        
+        detectedFaces.push({
+          bbox: [30, 25, 150, 120],
+          name: isRecognized ? randomPerson.name : "Unknown Person",
+          personId: isRecognized ? randomPerson.id : null,
+          confidence: Math.round(confidence * 100) / 100,
+          isRecognized: isRecognized
+        });
+
+        // Only log actual detections, not empty frames
+        await storage.createRecognitionEvent({
+          personId: detectedFaces[0].personId || null,
+          personName: detectedFaces[0].name || "Unknown",
+          confidence: (detectedFaces[0].confidence * 100).toFixed(2),
+          isRecognized: detectedFaces[0].personId ? 1 : 0
+        });
       }
 
       const recognitionResults = {
@@ -130,16 +137,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         count: detectedFaces.length,
         processing_time: `${Math.floor(Math.random() * 30 + 15)}ms`
       };
-
-      // Log recognition events with proper confidence values
-      for (const result of recognitionResults.detections) {
-        await storage.createRecognitionEvent({
-          personId: result.personId || null,
-          personName: result.name || "Unknown",
-          confidence: (result.confidence * 100).toFixed(2), // Convert to percentage string
-          isRecognized: result.personId ? 1 : 0
-        });
-      }
       
       res.json(recognitionResults);
 

@@ -90,7 +90,11 @@ export default function LiveRecognition() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <WebcamFeed mode="recognition" onFaceDetected={handleFaceDetection} />
+          <WebcamFeed 
+            mode="recognition" 
+            onFaceDetected={handleFaceDetection}
+            isActive={isRecognizing}
+          />
           
           {/* Recognition Controls */}
           <div className="flex items-center justify-between mt-4">
