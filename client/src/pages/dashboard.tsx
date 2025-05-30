@@ -8,7 +8,7 @@ import LiveRecognition from "@/components/live-recognition";
 import ChatInterface from "@/components/chat-interface";
 import { useQuery } from "@tanstack/react-query";
 import { Circle } from "lucide-react";
-import faceLogo from "@assets/FACE.png";
+import faceLogo from "@assets/FACE (1).png";
 
 type Tab = "registration" | "recognition" | "chat";
 
