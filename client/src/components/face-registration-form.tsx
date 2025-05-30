@@ -179,7 +179,7 @@ export default function FaceRegistrationForm() {
                       form.setValue("role", role);
                       setIsDropdownOpen(false);
                     }}
-                    className="p-3 cursor-pointer text-[#ffffff] bg-[#000000] hover:bg-[#000000] hover:text-[#1d9bf0] transition-colors duration-200"
+                    className="p-3 cursor-pointer text-[#ffffff] hover:bg-[#000000] hover:text-[#1d9bf0] transition-colors duration-200 bg-[#030000]"
                   >
                     {role.charAt(0).toUpperCase() + role.slice(1)}
                   </div>
@@ -221,7 +221,6 @@ export default function FaceRegistrationForm() {
           {registrationMutation.isPending ? "Registering..." : "Register Face"}
         </Button>
       </form>
-
       {/* Recent Registrations */}
       <Card>
         <CardHeader>
