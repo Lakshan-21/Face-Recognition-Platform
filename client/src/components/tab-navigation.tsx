@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Video, UserPlus, MessageSquare, Search } from "lucide-react";
+import { Video, UserPlus, MessageSquare } from "lucide-react";
 
 interface TabNavigationProps {
-  activeTab: "registration" | "recognition" | "chat" | "search";
-  onTabChange: (tab: "registration" | "recognition" | "chat" | "search") => void;
+  activeTab: "registration" | "recognition" | "chat";
+  onTabChange: (tab: "registration" | "recognition" | "chat") => void;
 }
 
 export default function TabNavigation({ activeTab, onTabChange }: TabNavigationProps) {
