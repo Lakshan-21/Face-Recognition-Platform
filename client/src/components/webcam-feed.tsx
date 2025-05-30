@@ -233,7 +233,7 @@ export default function WebcamFeed({ mode, onFaceDetected, isActive = true }: We
         )}
         
         {!isStreaming && (
-          <div className="absolute inset-0 flex items-center justify-center camera-inactive">
+          <div className="absolute inset-0 flex items-center justify-center camera-inactive bg-[#71767b]">
             <div className="text-center text-white">
               <Video className="w-12 h-12 mx-auto mb-2 opacity-50" />
               <p className="text-sm">Camera not active</p>
