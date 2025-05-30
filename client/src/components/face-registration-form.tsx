@@ -146,19 +146,9 @@ export default function FaceRegistrationForm() {
   return (
     <div className="space-y-6">
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <Label htmlFor="name">Person Name *</Label>
-          <input
-            id="name"
-            placeholder="Enter full name"
-            {...form.register("name")}
-            className="flex h-10 w-full rounded-md border border-gray-600 px-3 py-2 text-base text-[#ffffff] placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm mt-1 bg-[#e8f0fe00]"
-            style={{ backgroundColor: '#000000', color: '#ffffff' }}
-          />
-          {form.formState.errors.name && (
-            <p className="text-sm text-red-500 mt-1">{form.formState.errors.name.message}</p>
-          )}
-        </div>
+        {form.formState.errors.name && (
+          <p className="text-sm text-red-500 mt-1">{form.formState.errors.name.message}</p>
+        )}
 
         <div>
           <Label htmlFor="role">Role</Label>
