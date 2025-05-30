@@ -128,8 +128,8 @@ export default function WebcamFeed({ mode, onFaceDetected, isActive = true }: We
           }));
           setFaceDetections(detections);
           
-          // Pass detections to parent component for Current Frame display
-          if (onFaceDetected && detections.length > 0) {
+          // Always pass detections to parent component for Current Frame display
+          if (onFaceDetected) {
             onFaceDetected(detections);
           }
         } else if (mode === "registration" && result.faces) {
