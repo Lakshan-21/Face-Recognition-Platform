@@ -227,9 +227,7 @@ export default function FaceRegistrationForm() {
               color: '#ffffff', 
               marginBottom: '8px' 
             }}
-          >
-            Department (Optional)
-          </label>
+          >Department </label>
           <input
             id="department"
             type="text"
