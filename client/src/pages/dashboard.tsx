@@ -109,7 +109,7 @@ export default function Dashboard() {
             <div>
               <Card>
                 <CardHeader>
-                  <CardTitle>Recognition Statistics</CardTitle>
+                  <CardTitle className="text-2xl leading-none tracking-tight text-[#ffffff] font-bold">Recognition Statistics</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
