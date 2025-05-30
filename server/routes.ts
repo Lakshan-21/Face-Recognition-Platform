@@ -1,5 +1,6 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
+import { spawn } from "child_process";
 import { storage } from "./storage";
 import { insertFaceRegistrationSchema, insertRecognitionEventSchema, insertChatMessageSchema, insertSystemLogSchema } from "@shared/schema";
 
@@ -78,7 +79,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Call Python face detection service
-      const { spawn } = require('child_process');
       const python = spawn('python3', ['python_service/face_detection.py', 'detect']);
       
       let result = '';
@@ -139,7 +139,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const registrations = await storage.getAllFaceRegistrations();
       
       // Call Python face recognition service
-      const { spawn } = require('child_process');
       const python = spawn('python3', ['python_service/face_detection.py', 'recognize']);
       
       let result = '';
