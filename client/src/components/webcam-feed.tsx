@@ -178,7 +178,7 @@ export default function WebcamFeed({ mode, onFaceDetected, isActive = true }: We
 
   return (
     <div className="space-y-4">
-      <div className="relative bg-gray-900 rounded-lg overflow-hidden aspect-video camera-container">
+      <div className="relative bg-gray-900 rounded-lg overflow-hidden aspect-video">
         <video
           ref={videoRef}
           autoPlay
@@ -233,7 +233,7 @@ export default function WebcamFeed({ mode, onFaceDetected, isActive = true }: We
         )}
         
         {!isStreaming && (
-          <div className="absolute inset-0 flex items-center justify-center camera-inactive bg-[#71767b]">
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
             <div className="text-center text-white">
               <Video className="w-12 h-12 mx-auto mb-2 opacity-50" />
               <p className="text-sm">Camera not active</p>
@@ -241,6 +241,7 @@ export default function WebcamFeed({ mode, onFaceDetected, isActive = true }: We
           </div>
         )}
       </div>
+      
       {/* Camera Controls */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">

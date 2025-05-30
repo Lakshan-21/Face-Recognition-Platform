@@ -19,11 +19,6 @@ export default function TabNavigation({ activeTab, onTabChange }: TabNavigationP
       icon: Video,
     },
     {
-      id: "search" as const,
-      label: "Search",
-      icon: Search,
-    },
-    {
       id: "chat" as const,
       label: "AI Chat",
       icon: MessageSquare,
@@ -37,18 +32,19 @@ export default function TabNavigation({ activeTab, onTabChange }: TabNavigationP
           {tabs.map((tab) => {
             const Icon = tab.icon;
             return (
-              <div
+              <Button
                 key={tab.id}
-                className={`px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-200 cursor-pointer ${
+                variant={activeTab === tab.id ? "default" : "ghost"}
+                className={`px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-200 ${
                   activeTab === tab.id
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "text-muted-foreground hover:text-foreground hover:bg-background"
                 }`}
                 onClick={() => onTabChange(tab.id)}
               >
-                <Icon className="w-4 h-4 mr-2 inline" />
+                <Icon className="w-4 h-4 mr-2" />
                 {tab.label}
-              </div>
+              </Button>
             );
           })}
         </div>
