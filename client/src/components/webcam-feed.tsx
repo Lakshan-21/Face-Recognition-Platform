@@ -105,10 +105,14 @@ export default function WebcamFeed({ mode, onFaceDetected, isActive = true }: We
       // Use different endpoints based on mode
       const endpoint = mode === "recognition" ? '/api/recognize-faces' : '/api/detect-face';
       
+      const requestBody = mode === "recognition" 
+        ? { imageData, sessionId: 'live-recognition' }
+        : { imageData };
+        
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ imageData })
+        body: JSON.stringify(requestBody)
       });
 
       if (response.ok) {

@@ -7,6 +7,7 @@ import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import WebcamFeed from "./webcam-feed";
 import { Play, Square, Download, User, AlertTriangle } from "lucide-react";
+import { apiRequest } from "@/lib/queryClient";
 
 interface RecognitionResult {
   personId?: number;
@@ -46,11 +47,14 @@ export default function LiveRecognition() {
     
     // Reset recognition session on start
     try {
-      await apiRequest('/api/reset-recognition-session', {
+      const response = await fetch('/api/reset-recognition-session', {
         method: 'POST',
         body: JSON.stringify({ sessionId: 'live-recognition' }),
         headers: { 'Content-Type': 'application/json' }
       });
+      if (response.ok) {
+        console.log('Recognition session reset successfully');
+      }
     } catch (error) {
       console.log('Session reset error:', error);
     }
