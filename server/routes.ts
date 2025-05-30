@@ -114,6 +114,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Session tracking for face recognition
   const recognitionSessions = new Map();
+  // Face tracking for stable bounding boxes
+  const faceTracker = new Map(); // Store last known position for each person
   
   // Live Recognition Routes
   app.post("/api/recognize-faces", async (req, res) => {
@@ -141,23 +143,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const currentSessionId = sessionId || 'default';
         const sessionData = recognitionSessions.get(currentSessionId) || new Set();
         
+        // Get or create stable face position for this person
+        const trackingKey = `${currentSessionId}_${randomPerson.id}`;
+        let facePosition = faceTracker.get(trackingKey);
+        
+        if (!facePosition) {
+          // First time detecting this person - establish initial position
+          const frameWidth = 640;
+          const frameHeight = 480;
+          const faceWidth = 180;
+          const faceHeight = 140;
+          
+          // Center the face in the frame for initial detection
+          const centerX = (frameWidth - faceWidth) / 2;
+          const centerY = (frameHeight - faceHeight) / 2;
+          
+          facePosition = {
+            x: centerX,
+            y: centerY,
+            width: faceWidth,
+            height: faceHeight
+          };
+          faceTracker.set(trackingKey, facePosition);
+        } else {
+          // Slight movement simulation for natural tracking (±5 pixels)
+          const movement = 5;
+          facePosition.x += (Math.random() - 0.5) * movement;
+          facePosition.y += (Math.random() - 0.5) * movement;
+          
+          // Keep face within frame bounds
+          facePosition.x = Math.max(0, Math.min(640 - facePosition.width, facePosition.x));
+          facePosition.y = Math.max(0, Math.min(480 - facePosition.height, facePosition.y));
+          
+          faceTracker.set(trackingKey, facePosition);
+        }
+
         if (!sessionData.has(randomPerson.id)) {
           // First time detecting this person in this session
           sessionData.add(randomPerson.id);
           recognitionSessions.set(currentSessionId, sessionData);
           
-          // Generate realistic bounding box coordinates for different positions
-          const frameWidth = 640;
-          const frameHeight = 480;
-          const faceWidth = 180; // Larger face width for better visibility
-          const faceHeight = 140; // Larger face height for better visibility
-          
-          // Random position across the frame
-          const randomX = Math.floor(Math.random() * (frameWidth - faceWidth));
-          const randomY = Math.floor(Math.random() * (frameHeight - faceHeight) * 0.6) + 25; // Keep faces in upper 60% of frame
-          
           detectedFaces.push({
-            bbox: [randomX, randomY, randomX + faceWidth, randomY + faceHeight],
+            bbox: [facePosition.x, facePosition.y, facePosition.x + facePosition.width, facePosition.y + facePosition.height],
             name: randomPerson.name,
             personId: randomPerson.id,
             confidence: Math.round(confidence),
@@ -173,18 +200,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           });
         } else {
           // Person already detected in this session, show detection but don't log
-          // Generate realistic bounding box coordinates for different positions
-          const frameWidth = 640;
-          const frameHeight = 480;
-          const faceWidth = 180; // Larger face width for better visibility
-          const faceHeight = 140; // Larger face height for better visibility
-          
-          // Random position across the frame
-          const randomX = Math.floor(Math.random() * (frameWidth - faceWidth));
-          const randomY = Math.floor(Math.random() * (frameHeight - faceHeight) * 0.6) + 25; // Keep faces in upper 60% of frame
-          
           detectedFaces.push({
-            bbox: [randomX, randomY, randomX + faceWidth, randomY + faceHeight],
+            bbox: [facePosition.x, facePosition.y, facePosition.x + facePosition.width, facePosition.y + facePosition.height],
             name: randomPerson.name,
             personId: randomPerson.id,
             confidence: Math.round(confidence),
@@ -212,7 +229,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { sessionId } = req.body;
       const currentSessionId = sessionId || 'default';
+      
+      // Clear session data
       recognitionSessions.delete(currentSessionId);
+      
+      // Clear face tracking data for this session
+      for (const key of faceTracker.keys()) {
+        if (key.startsWith(`${currentSessionId}_`)) {
+          faceTracker.delete(key);
+        }
+      }
+      
       res.json({ success: true, message: "Recognition session reset" });
     } catch (error) {
       res.status(500).json({ error: error instanceof Error ? error.message : String(error) });
