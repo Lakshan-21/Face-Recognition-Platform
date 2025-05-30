@@ -161,7 +161,7 @@ export default function FaceRegistrationForm() {
         </div>
 
         <div>
-          <Label htmlFor="role">Role (Optional)</Label>
+          <Label htmlFor="role">Role</Label>
           <div className="mt-1 relative">
             <div
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
