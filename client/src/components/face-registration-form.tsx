@@ -163,11 +163,11 @@ export default function FaceRegistrationForm() {
             <SelectTrigger className="mt-1">
               <SelectValue placeholder="Select role" />
             </SelectTrigger>
-            <SelectContent className="bg-[#000000] border-gray-700">
-              <SelectItem value="employee" className="text-[#ffffff] hover:bg-gray-800 focus:bg-gray-800">Employee</SelectItem>
-              <SelectItem value="visitor" className="text-[#ffffff] hover:bg-gray-800 focus:bg-gray-800">Visitor</SelectItem>
-              <SelectItem value="contractor" className="text-[#ffffff] hover:bg-gray-800 focus:bg-gray-800">Contractor</SelectItem>
-              <SelectItem value="intern" className="text-[#ffffff] hover:bg-gray-800 focus:bg-gray-800">Intern</SelectItem>
+            <SelectContent className="bg-[#000000] !bg-[#000000] border-gray-700">
+              <SelectItem value="employee" className="text-[#ffffff] !text-[#ffffff] hover:bg-gray-800 focus:bg-gray-800 data-[highlighted]:bg-gray-800 data-[highlighted]:text-[#ffffff]">Employee</SelectItem>
+              <SelectItem value="visitor" className="text-[#ffffff] !text-[#ffffff] hover:bg-gray-800 focus:bg-gray-800 data-[highlighted]:bg-gray-800 data-[highlighted]:text-[#ffffff]">Visitor</SelectItem>
+              <SelectItem value="contractor" className="text-[#ffffff] !text-[#ffffff] hover:bg-gray-800 focus:bg-gray-800 data-[highlighted]:bg-gray-800 data-[highlighted]:text-[#ffffff]">Contractor</SelectItem>
+              <SelectItem value="intern" className="text-[#ffffff] !text-[#ffffff] hover:bg-gray-800 focus:bg-gray-800 data-[highlighted]:bg-gray-800 data-[highlighted]:text-[#ffffff]">Intern</SelectItem>
             </SelectContent>
           </Select>
         </div>
