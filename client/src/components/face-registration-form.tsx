@@ -191,7 +191,7 @@ export default function FaceRegistrationForm() {
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className="flex items-center justify-between p-3 border border-gray-600 rounded-md cursor-pointer text-[#ffffff] hover:bg-gray-800 transition-colors duration-200 bg-[#000000]"
             >
-              <span>{selectedRole || "Select role"}</span>
+              <span className="text-[#71767b]">{selectedRole || "Select role"}</span>
               <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
             </div>
             {isDropdownOpen && (
