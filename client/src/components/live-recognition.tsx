@@ -66,8 +66,15 @@ export default function LiveRecognition() {
   };
 
   const handleFaceDetection = (detectionResults: any) => {
-    if (isRecognizing && detectionResults?.detections) {
-      setCurrentDetections(detectionResults.detections);
+    if (isRecognizing) {
+      // Handle both array format and object format
+      if (Array.isArray(detectionResults)) {
+        setCurrentDetections(detectionResults);
+      } else if (detectionResults?.detections) {
+        setCurrentDetections(detectionResults.detections);
+      } else {
+        setCurrentDetections([]);
+      }
     }
   };
 

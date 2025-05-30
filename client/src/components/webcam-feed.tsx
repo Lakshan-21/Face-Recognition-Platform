@@ -120,18 +120,30 @@ export default function WebcamFeed({ mode, onFaceDetected, isActive = true }: We
         
         if (mode === "recognition" && result.detections) {
           // Handle recognition mode - show detected faces with names
-          setFaceDetections(result.detections.map((detection: any) => ({
+          const detections = result.detections.map((detection: any) => ({
             bbox: detection.bbox,
             confidence: detection.confidence,
             name: detection.name,
             isRecognized: detection.isRecognized
-          })));
+          }));
+          setFaceDetections(detections);
+          
+          // Pass detections to parent component for Current Frame display
+          if (onFaceDetected && detections.length > 0) {
+            onFaceDetected(detections);
+          }
         } else if (mode === "registration" && result.faces) {
           // Handle registration mode - standard face detection
           setFaceDetections(result.faces || []);
           
           if (result.faces?.length > 0 && onFaceDetected) {
             onFaceDetected(result.faces[0]);
+          }
+        } else {
+          // No faces detected - clear display
+          setFaceDetections([]);
+          if (onFaceDetected) {
+            onFaceDetected([]);
           }
         }
       }
