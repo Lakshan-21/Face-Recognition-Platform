@@ -142,22 +142,22 @@ export default function LiveRecognition() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="bg-gray-50 rounded-lg p-4">
-              <div className="text-2xl font-bold text-blue-600">{stats?.totalDetections || 0}</div>
+              <div className="text-2xl font-bold text-blue-600">{stats?.totalDetections || '0'}</div>
               <div className="text-sm text-gray-600">Total Detections</div>
             </div>
             
             <div className="bg-gray-50 rounded-lg p-4">
-              <div className="text-2xl font-bold text-green-600">{stats?.recognizedFaces || 0}</div>
+              <div className="text-2xl font-bold text-green-600">{stats?.recognizedFaces || '0'}</div>
               <div className="text-sm text-gray-600">Recognized Faces</div>
             </div>
             
             <div className="bg-gray-50 rounded-lg p-4">
-              <div className="text-2xl font-bold text-orange-600">{stats?.unknownFaces || 0}</div>
+              <div className="text-2xl font-bold text-orange-600">{stats?.unknownFaces || '0'}</div>
               <div className="text-sm text-gray-600">Unknown Faces</div>
             </div>
             
             <div className="bg-gray-50 rounded-lg p-4">
-              <div className="text-2xl font-bold text-gray-700">{stats?.averageConfidence || 0}%</div>
+              <div className="text-2xl font-bold text-gray-700">{stats?.averageConfidence || '0'}%</div>
               <div className="text-sm text-gray-600">Average Confidence</div>
             </div>
           </CardContent>

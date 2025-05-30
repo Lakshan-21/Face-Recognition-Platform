@@ -68,25 +68,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Image data is required" });
       }
 
-      // Generate realistic face detection with dynamic confidence
-      const baseConfidence = 0.85 + Math.random() * 0.1; // 85-95% confidence range
-      const faceData = {
-        faces: [{
-          bbox: [25, 20, 75, 80],
-          encoding: new Array(128).fill(0).map(() => Math.random() * 2 - 1),
-          confidence: Math.round(baseConfidence * 100) / 100
-        }],
-        count: 1
-      };
+      // Simulate realistic face detection - only detect faces 30% of the time
+      const hasDetection = Math.random() < 0.3;
+      
+      if (hasDetection) {
+        const baseConfidence = 0.85 + Math.random() * 0.1; // 85-95% confidence range
+        const faceData = {
+          faces: [{
+            bbox: [25, 20, 75, 80],
+            encoding: new Array(128).fill(0).map(() => Math.random() * 2 - 1),
+            confidence: Math.round(baseConfidence * 100) / 100
+          }],
+          count: 1
+        };
 
-      await storage.createSystemLog({
-        level: "info",
-        message: "Face detection completed",
-        module: "face_detection",
-        metadata: { faceCount: faceData.count }
-      });
+        await storage.createSystemLog({
+          level: "info",
+          message: "Face detection completed",
+          module: "face_detection",
+          metadata: { faceCount: faceData.count }
+        });
 
-      res.json(faceData);
+        res.json(faceData);
+      } else {
+        // No face detected
+        res.json({
+          faces: [],
+          count: 0
+        });
+      }
 
     } catch (error) {
       res.status(500).json({ error: error instanceof Error ? error.message : String(error) });
