@@ -33,7 +33,7 @@ export default function Dashboard() {
                 </div>
                 <div>
                   <h1 className="text-xl font-bold text-foreground">Face Recognition Platform</h1>
-                  <p className="text-xs text-muted-foreground">Katomaran Hackathon 2025</p>
+                  <p className="text-xs font-semibold text-[#f2f2f2]">Aperture Security Systems</p>
                 </div>
               </div>
               <div className="flex items-center space-x-2">
