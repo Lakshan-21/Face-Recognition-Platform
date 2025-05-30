@@ -9,10 +9,10 @@
   --muted-foreground: 139 152 165; /* #8B98A5 - X's secondary text */
   --popover: 0 0 0; /* #000000 */
   --popover-foreground: 255 255 255; /* #FFFFFF */
-  --card: 22 24 28; /* #16181C - X's card background */
+  --card: 0 0 0; /* #000000 - Pure black card background */
   --card-foreground: 255 255 255; /* #FFFFFF */
   --border: 47 51 54; /* #2F3336 - X's borders */
-  --input: 32 35 39; /* #202327 - X's input backgrounds */
+  --input: 0 0 0; /* #000000 - Pure black input backgrounds */
   --primary: 255 255 255; /* #FFFFFF - White primary buttons */
   --primary-foreground: 0 0 0; /* #000000 - Black text on white */
   --secondary: 47 51 54; /* #2F3336 - X's secondary buttons */
@@ -103,7 +103,7 @@ html, body {
 
 /* Card styling like X */
 .card {
-  background-color: transparent !important;
+  background-color: #000000 !important;
   border: 1px solid #2F3336 !important;
   border-radius: 16px !important;
   color: #E7E9EA !important;
@@ -256,6 +256,39 @@ div:not(.card) {
 :root:not(.dark) [data-radix-select-item][data-highlighted] {
   background-color: #eff3f4 !important;
   color: #1d9bf0 !important;
+}
+
+/* Global black background overrides */
+* {
+  background-color: inherit !important;
+}
+
+body,
+html,
+#root,
+.app {
+  background-color: #000000 !important;
+}
+
+/* Override any remaining white backgrounds */
+.bg-white,
+.bg-background,
+.bg-popover,
+.bg-card,
+.bg-muted {
+  background-color: #000000 !important;
+}
+
+/* Webcam and canvas elements */
+canvas,
+video {
+  background-color: #000000 !important;
+}
+
+/* Form elements */
+form,
+fieldset {
+  background-color: #000000 !important;
 }
 
 .dark {
