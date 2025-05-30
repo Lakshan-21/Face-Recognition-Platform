@@ -58,7 +58,7 @@ export default function LiveRecognition() {
 
   const handleExportLog = () => {
     // Export recognition log functionality
-    const csvContent = recentEvents?.map((event: any) => 
+    const csvContent = recentEvents.map((event: any) => 
       `${event.detectedAt},${event.personName},${event.confidence},${event.isRecognized ? 'Recognized' : 'Unknown'}`
     ).join('\n');
     
@@ -217,7 +217,7 @@ export default function LiveRecognition() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2 max-h-64 overflow-y-auto">
-              {recentEvents?.slice(0, 10).map((event: any) => (
+              {recentEvents.slice(0, 10).map((event: any) => (
                 <div key={event.id} className="flex items-center justify-between p-2 bg-gray-50 rounded text-sm">
                   <div className="flex items-center space-x-2">
                     <div className={`w-2 h-2 rounded-full ${
@@ -231,7 +231,7 @@ export default function LiveRecognition() {
                 </div>
               ))}
               
-              {(!recentEvents || recentEvents.length === 0) && (
+              {recentEvents.length === 0 && (
                 <div className="text-center py-4 text-gray-500">
                   <p className="text-sm">No recognition events yet</p>
                 </div>
