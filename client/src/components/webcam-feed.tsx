@@ -120,12 +120,29 @@ export default function WebcamFeed({ mode, onFaceDetected, isActive = true }: We
         
         if (mode === "recognition" && result.detections) {
           // Handle recognition mode - show detected faces with names
-          const detections = result.detections.map((detection: any) => ({
-            bbox: detection.bbox,
-            confidence: detection.confidence,
-            name: detection.name,
-            isRecognized: detection.isRecognized
-          }));
+          // Convert pixel coordinates to percentages for display
+          const videoElement = videoRef.current;
+          const frameWidth = 640; // Standard frame width from backend
+          const frameHeight = 480; // Standard frame height from backend
+          
+          const detections = result.detections.map((detection: any) => {
+            // Convert absolute pixel coordinates to percentages
+            const [x1, y1, x2, y2] = detection.bbox;
+            const bboxPercentage = [
+              (x1 / frameWidth) * 100,
+              (y1 / frameHeight) * 100,
+              (x2 / frameWidth) * 100,
+              (y2 / frameHeight) * 100
+            ];
+            
+            return {
+              bbox: bboxPercentage,
+              confidence: detection.confidence / 100, // Convert percentage to decimal
+              name: detection.name,
+              isRecognized: detection.isRecognized
+            };
+          });
+          
           setFaceDetections(detections);
           
           // Always pass detections to parent component for Current Frame display
