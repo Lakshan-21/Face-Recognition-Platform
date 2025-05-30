@@ -152,7 +152,8 @@ export default function FaceRegistrationForm() {
             id="name"
             placeholder="Enter full name"
             {...form.register("name")}
-            className="mt-1 bg-[#000000] text-[#ffffff] border-gray-600 placeholder:text-gray-400"
+            className="mt-1 !bg-[#000000] !text-[#ffffff] border-gray-600 placeholder:text-gray-400 focus:!bg-[#000000] focus:!text-[#ffffff]"
+            style={{ backgroundColor: '#000000', color: '#ffffff' }}
           />
           {form.formState.errors.name && (
             <p className="text-sm text-red-500 mt-1">{form.formState.errors.name.message}</p>
