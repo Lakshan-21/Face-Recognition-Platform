@@ -25,55 +25,70 @@
   --radius: 0.5rem; /* Moderate rounding like X */
 }
 
-/* X (Twitter) Authentic Styling */
-body, html {
+/* X (Twitter) Authentic Dark Theme */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
   background-color: #000000 !important;
   color: #E7E9EA !important;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  margin: 0;
+  padding: 0;
 }
 
-/* Tab Navigation - X Style */
-[role="tablist"], .tab-nav, [class*="tab"] {
-  background-color: transparent !important;
-  border-bottom: 1px solid #2F3336 !important;
+/* Main container styling */
+#root, .app, main {
+  background-color: #000000 !important;
+  min-height: 100vh !important;
 }
 
-[role="tab"], .tab-item, [class*="tab"][class*="item"] {
+/* Tab Navigation exactly like X */
+[role="tablist"] button, .tabs-list button {
   background-color: transparent !important;
   color: #71767B !important;
   border: none !important;
   padding: 16px !important;
   font-weight: 500 !important;
-  border-radius: 0 !important;
+  font-size: 15px !important;
+  cursor: pointer !important;
   position: relative !important;
+  border-radius: 0 !important;
+  transition: color 0.2s !important;
 }
 
-[role="tab"][data-state="active"], .tab-item.active, [class*="tab"][class*="active"] {
+[role="tablist"] button:hover {
   color: #E7E9EA !important;
 }
 
-[role="tab"][data-state="active"]::after, .tab-item.active::after {
-  content: '' !important;
-  position: absolute !important;
-  bottom: 0 !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  width: 56px !important;
-  height: 4px !important;
-  background-color: #1D9BF0 !important;
-  border-radius: 2px !important;
+[role="tablist"] button[data-state="active"] {
+  color: #E7E9EA !important;
 }
 
-/* Cards - X Style */
-.card, [class*="card"]:not([class*="tab"]) {
-  background-color: rgba(0, 0, 0, 0) !important;
+[role="tablist"] button[data-state="active"]::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 4px;
+  background-color: #1D9BF0;
+  border-radius: 2px;
+}
+
+/* Card styling like X */
+.card {
+  background-color: transparent !important;
   border: 1px solid #2F3336 !important;
   border-radius: 16px !important;
   color: #E7E9EA !important;
+  padding: 16px !important;
 }
 
-/* Buttons - X Style */
-button, .btn, [class*="button"]:not([class*="tab"]) {
+/* Button styling like X */
+button:not([role="tab"]) {
   background-color: #1D9BF0 !important;
   color: #FFFFFF !important;
   border: none !important;
@@ -81,27 +96,17 @@ button, .btn, [class*="button"]:not([class*="tab"]) {
   font-weight: 700 !important;
   font-size: 15px !important;
   padding: 8px 24px !important;
+  cursor: pointer !important;
   transition: background-color 0.2s !important;
 }
 
-button:hover, .btn:hover {
+button:not([role="tab"]):hover {
   background-color: #1A8CD8 !important;
 }
 
-/* Secondary Buttons */
-.btn-outline, [class*="outline"], button[variant="outline"] {
-  background-color: transparent !important;
-  color: #E7E9EA !important;
-  border: 1px solid #536471 !important;
-}
-
-.btn-outline:hover, [class*="outline"]:hover {
-  background-color: rgba(231, 233, 234, 0.1) !important;
-}
-
-/* Inputs - X Style */
+/* Input styling like X */
 input, textarea, select {
-  background-color: transparent !important;
+  background-color: #000000 !important;
   color: #E7E9EA !important;
   border: 1px solid #333639 !important;
   border-radius: 4px !important;
@@ -114,63 +119,20 @@ input:focus, textarea:focus, select:focus {
   outline: none !important;
 }
 
-/* Text Colors - X Hierarchy */
-h1, h2, h3, .title {
+/* Text hierarchy like X */
+h1, h2, h3 {
   color: #E7E9EA !important;
   font-weight: 800 !important;
 }
 
-.secondary-text, .muted {
+/* Secondary text like X */
+.text-muted-foreground, .text-sm {
   color: #71767B !important;
 }
 
-/* Badges - X Style */
-.badge, [class*="badge"] {
-  background-color: #1D9BF0 !important;
-  color: #FFFFFF !important;
-  border-radius: 9999px !important;
-  font-size: 13px !important;
-  font-weight: 700 !important;
-  padding: 4px 8px !important;
-}
-
-/* Fix white elements - Force dark theme */
-div, span, p, li, ul, ol {
+/* Force all containers to be transparent */
+div:not(.card) {
   background-color: transparent !important;
-}
-
-/* Registration cards and items */
-[class*="registration"], [class*="user"], .user-card, .registration-item {
-  background-color: #16181C !important;
-  color: #E7E9EA !important;
-  border: 1px solid #2F3336 !important;
-}
-
-/* Any remaining white backgrounds */
-*:not(input):not(textarea):not(select) {
-  background-color: transparent !important;
-}
-
-/* Override any white text on dark backgrounds */
-.text-white {
-  color: #E7E9EA !important;
-}
-
-/* Specific fixes for the registration cards */
-.space-y-4 > div, .space-y-2 > div {
-  background-color: #16181C !important;
-  border: 1px solid #2F3336 !important;
-  border-radius: 16px !important;
-}
-
-/* Avatar and user info styling */
-.flex.items-center {
-  background-color: transparent !important;
-}
-
-/* Time stamps and secondary info */
-.text-sm, .text-muted-foreground {
-  color: #71767B !important;
 }
 
 .dark {
