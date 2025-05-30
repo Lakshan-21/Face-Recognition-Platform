@@ -8,6 +8,7 @@ import LiveRecognition from "@/components/live-recognition";
 import ChatInterface from "@/components/chat-interface";
 import { useQuery } from "@tanstack/react-query";
 import { Circle } from "lucide-react";
+import faceLogo from "@assets/FACE.png";
 
 type Tab = "registration" | "recognition" | "chat";
 
@@ -29,7 +30,7 @@ export default function Dashboard() {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 flex items-center justify-center">
-                  <img src="/attached_assets/FACE.png" alt="Aperture Logo" className="w-8 h-8" />
+                  <img src={faceLogo} alt="Aperture Logo" className="w-8 h-8" />
                 </div>
                 <div>
                   <h1 className="text-xl font-bold text-foreground">Face Recognition Platform</h1>
