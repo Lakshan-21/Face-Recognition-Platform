@@ -148,20 +148,28 @@ export default function FaceRegistrationForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <Label htmlFor="name">Person Name *</Label>
-          <input
-            id="name"
-            placeholder="Enter full name"
-            {...form.register("name")}
-            className="flex h-10 w-full rounded-md border border-gray-600 px-3 py-2 text-base placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm mt-1"
-            style={{ 
-              backgroundColor: '#000000 !important', 
-              color: '#ffffff !important',
-              background: '#000000 !important',
-              WebkitAppearance: 'none',
-              MozAppearance: 'none',
-              appearance: 'none'
-            }}
-          />
+          <div style={{ backgroundColor: '#000000', padding: '1px', borderRadius: '6px' }}>
+            <input
+              id="name"
+              placeholder="Enter full name"
+              {...form.register("name")}
+              style={{ 
+                backgroundColor: '#000000',
+                color: '#ffffff',
+                border: '1px solid #2F3336',
+                borderRadius: '6px',
+                padding: '8px 12px',
+                width: '100%',
+                height: '40px',
+                fontSize: '14px',
+                outline: 'none',
+                WebkitAppearance: 'none',
+                MozAppearance: 'none',
+                appearance: 'none',
+                fontFamily: 'inherit'
+              }}
+            />
+          </div>
           {form.formState.errors.name && (
             <p className="text-sm text-red-500 mt-1">{form.formState.errors.name.message}</p>
           )}
@@ -200,20 +208,28 @@ export default function FaceRegistrationForm() {
 
         <div>
           <Label htmlFor="department" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-[#ffffff]">Department (Optional)</Label>
-          <input
-            id="department"
-            placeholder="e.g., Engineering, Marketing"
-            {...form.register("department")}
-            className="flex h-10 w-full rounded-md border border-gray-600 px-3 py-2 text-base placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm mt-1"
-            style={{ 
-              backgroundColor: '#000000 !important', 
-              color: '#ffffff !important',
-              background: '#000000 !important',
-              WebkitAppearance: 'none',
-              MozAppearance: 'none',
-              appearance: 'none'
-            }}
-          />
+          <div style={{ backgroundColor: '#000000', padding: '1px', borderRadius: '6px' }}>
+            <input
+              id="department"
+              placeholder="e.g., Engineering, Marketing"
+              {...form.register("department")}
+              style={{ 
+                backgroundColor: '#000000',
+                color: '#ffffff',
+                border: '1px solid #2F3336',
+                borderRadius: '6px',
+                padding: '8px 12px',
+                width: '100%',
+                height: '40px',
+                fontSize: '14px',
+                outline: 'none',
+                WebkitAppearance: 'none',
+                MozAppearance: 'none',
+                appearance: 'none',
+                fontFamily: 'inherit'
+              }}
+            />
+          </div>
         </div>
 
         <div className="bg-gray-50 rounded-lg p-4">
