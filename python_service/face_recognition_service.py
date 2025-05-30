@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 class FaceRecognitionService:
     def __init__(self):
-        self.tolerance = 0.6  # Default tolerance for face matching
+        self.tolerance = 0.7  # More lenient tolerance for better recognition accuracy
         
     def decode_image(self, image_data):
         """Decode base64 image data to numpy array"""
@@ -54,9 +54,9 @@ class FaceRecognitionService:
             if image is None:
                 return {"error": "Failed to decode image"}
             
-            # Find face locations and encodings
-            face_locations = face_recognition.face_locations(image, model="hog")
-            face_encodings = face_recognition.face_encodings(image, face_locations)
+            # Find face locations and encodings with improved parameters
+            face_locations = face_recognition.face_locations(image, model="hog", number_of_times_to_upsample=2)
+            face_encodings = face_recognition.face_encodings(image, face_locations, num_jitters=5)
             
             faces = []
             for (top, right, bottom, left), encoding in zip(face_locations, face_encodings):
@@ -91,9 +91,9 @@ class FaceRecognitionService:
             if image is None:
                 return {"error": "Failed to decode image"}
             
-            # Find face locations and encodings in the image
-            face_locations = face_recognition.face_locations(image, model="hog")
-            face_encodings = face_recognition.face_encodings(image, face_locations)
+            # Find face locations and encodings in the image with improved parameters
+            face_locations = face_recognition.face_locations(image, model="hog", number_of_times_to_upsample=2)
+            face_encodings = face_recognition.face_encodings(image, face_locations, num_jitters=5)
             
             # Prepare known face encodings
             known_encodings = []
