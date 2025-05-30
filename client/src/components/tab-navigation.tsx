@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Video, UserPlus, MessageSquare } from "lucide-react";
 
 interface TabNavigationProps {
@@ -26,46 +25,57 @@ export default function TabNavigation({ activeTab, onTabChange }: TabNavigationP
   ];
 
   return (
-    <nav className="bg-[#000000] border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-        <div className="flex space-x-2 p-1 w-fit" style={{ backgroundColor: 'transparent' }}>
+    <nav style={{ backgroundColor: '#000000', borderBottom: '1px solid #2f3336' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 16px' }}>
+        <div style={{ 
+          display: 'flex', 
+          gap: '8px', 
+          padding: '12px 0',
+          justifyContent: 'flex-start'
+        }}>
           {tabs.map((tab) => {
             const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            
             return (
               <button
                 key={tab.id}
                 onClick={() => onTabChange(tab.id)}
                 style={{
-                  backgroundColor: activeTab === tab.id ? '#1d9bf0' : '#2f3336',
-                  color: activeTab === tab.id ? '#ffffff' : '#71767b',
-                  border: activeTab === tab.id ? '2px solid #1d9bf0' : '1px solid rgba(255, 255, 255, 0.2)',
-                  borderRadius: '9999px',
-                  padding: '10px 24px',
+                  backgroundColor: isActive ? '#1d9bf0' : '#2f3336',
+                  color: isActive ? '#ffffff' : '#71767b',
+                  border: isActive ? '2px solid #1d9bf0' : '1px solid rgba(255, 255, 255, 0.3)',
+                  borderRadius: '25px',
+                  padding: '12px 24px',
                   fontSize: '14px',
                   fontWeight: '600',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
-                  transform: activeTab === tab.id ? 'scale(1.05)' : 'scale(1)',
-                  boxShadow: activeTab === tab.id ? '0 4px 12px rgba(29, 155, 240, 0.3)' : 'none',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  outline: 'none'
+                  outline: 'none',
+                  transform: isActive ? 'scale(1.02)' : 'scale(1)',
+                  boxShadow: isActive ? '0 2px 8px rgba(29, 155, 240, 0.4)' : '0 1px 3px rgba(0, 0, 0, 0.2)',
+                  minWidth: '140px',
+                  justifyContent: 'center'
                 }}
                 onMouseEnter={(e) => {
-                  if (activeTab !== tab.id) {
+                  if (!isActive) {
                     e.currentTarget.style.backgroundColor = '#16181c';
                     e.currentTarget.style.color = '#ffffff';
+                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.5)';
                   }
                 }}
                 onMouseLeave={(e) => {
-                  if (activeTab !== tab.id) {
+                  if (!isActive) {
                     e.currentTarget.style.backgroundColor = '#2f3336';
                     e.currentTarget.style.color = '#71767b';
+                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
                   }
                 }}
               >
-                <Icon style={{ width: '16px', height: '16px', marginRight: '8px' }} />
+                <Icon style={{ width: '16px', height: '16px' }} />
                 {tab.label}
               </button>
             );
