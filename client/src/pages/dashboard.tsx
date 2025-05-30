@@ -92,7 +92,7 @@ export default function Dashboard() {
                     Capture and register a new face in the system
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="bg-[#000000]">
                   <FaceRegistrationForm />
                 </CardContent>
               </Card>
