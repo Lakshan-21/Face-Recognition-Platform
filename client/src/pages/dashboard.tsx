@@ -28,8 +28,8 @@ export default function Dashboard() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                  <Circle className="h-4 w-4 text-primary-foreground" />
+                <div className="w-8 h-8 flex items-center justify-center">
+                  <img src="/attached_assets/FACE.png" alt="Aperture Logo" className="w-8 h-8" />
                 </div>
                 <div>
                   <h1 className="text-xl font-bold text-foreground">Face Recognition Platform</h1>
