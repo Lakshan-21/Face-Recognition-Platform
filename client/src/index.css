@@ -25,38 +25,113 @@
   --radius: 0.5rem; /* Moderate rounding like X */
 }
 
-/* Force X styling - Override everything */
-* {
-  color: white !important;
-}
-
+/* X (Twitter) Authentic Styling */
 body, html {
   background-color: #000000 !important;
-  color: #FFFFFF !important;
+  color: #E7E9EA !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
 }
 
-.card, [class*="card"] {
-  background-color: #16181C !important;
-  color: #FFFFFF !important;
-  border-color: #2F3336 !important;
-}
-
-.btn, button, [class*="button"] {
-  background-color: #FFFFFF !important;
-  color: #000000 !important;
-  border-radius: 20px !important;
-}
-
-.btn-outline, [class*="outline"] {
+/* Tab Navigation - X Style */
+[role="tablist"], .tab-nav, [class*="tab"] {
   background-color: transparent !important;
-  color: #FFFFFF !important;
-  border-color: #2F3336 !important;
+  border-bottom: 1px solid #2F3336 !important;
 }
 
-input, textarea, select {
-  background-color: #202327 !important;
+[role="tab"], .tab-item, [class*="tab"][class*="item"] {
+  background-color: transparent !important;
+  color: #71767B !important;
+  border: none !important;
+  padding: 16px !important;
+  font-weight: 500 !important;
+  border-radius: 0 !important;
+  position: relative !important;
+}
+
+[role="tab"][data-state="active"], .tab-item.active, [class*="tab"][class*="active"] {
+  color: #E7E9EA !important;
+}
+
+[role="tab"][data-state="active"]::after, .tab-item.active::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 56px !important;
+  height: 4px !important;
+  background-color: #1D9BF0 !important;
+  border-radius: 2px !important;
+}
+
+/* Cards - X Style */
+.card, [class*="card"]:not([class*="tab"]) {
+  background-color: rgba(0, 0, 0, 0) !important;
+  border: 1px solid #2F3336 !important;
+  border-radius: 16px !important;
+  color: #E7E9EA !important;
+}
+
+/* Buttons - X Style */
+button, .btn, [class*="button"]:not([class*="tab"]) {
+  background-color: #1D9BF0 !important;
   color: #FFFFFF !important;
-  border-color: #2F3336 !important;
+  border: none !important;
+  border-radius: 9999px !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  padding: 8px 24px !important;
+  transition: background-color 0.2s !important;
+}
+
+button:hover, .btn:hover {
+  background-color: #1A8CD8 !important;
+}
+
+/* Secondary Buttons */
+.btn-outline, [class*="outline"], button[variant="outline"] {
+  background-color: transparent !important;
+  color: #E7E9EA !important;
+  border: 1px solid #536471 !important;
+}
+
+.btn-outline:hover, [class*="outline"]:hover {
+  background-color: rgba(231, 233, 234, 0.1) !important;
+}
+
+/* Inputs - X Style */
+input, textarea, select {
+  background-color: transparent !important;
+  color: #E7E9EA !important;
+  border: 1px solid #333639 !important;
+  border-radius: 4px !important;
+  padding: 12px !important;
+  font-size: 17px !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #1D9BF0 !important;
+  outline: none !important;
+}
+
+/* Text Colors - X Hierarchy */
+h1, h2, h3, .title {
+  color: #E7E9EA !important;
+  font-weight: 800 !important;
+}
+
+.secondary-text, .muted {
+  color: #71767B !important;
+}
+
+/* Badges - X Style */
+.badge, [class*="badge"] {
+  background-color: #1D9BF0 !important;
+  color: #FFFFFF !important;
+  border-radius: 9999px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  padding: 4px 8px !important;
 }
 
 .dark {
