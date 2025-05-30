@@ -40,9 +40,20 @@ export default function LiveRecognition() {
     refetchInterval: 2000,
   });
 
-  const handleStartRecognition = () => {
+  const handleStartRecognition = async () => {
     setIsRecognizing(true);
     setCurrentDetections([]);
+    
+    // Reset recognition session on start
+    try {
+      await apiRequest('/api/reset-recognition-session', {
+        method: 'POST',
+        body: JSON.stringify({ sessionId: 'live-recognition' }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+    } catch (error) {
+      console.log('Session reset error:', error);
+    }
   };
 
   const handleStopRecognition = () => {

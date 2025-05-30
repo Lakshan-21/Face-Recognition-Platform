@@ -127,7 +127,7 @@ export class DatabaseStorage implements IStorage {
       .from(recognitionEvents)
       .where(eq(recognitionEvents.isRecognized, 0));
 
-    // Fix confidence calculation - convert string to number
+    // Fix confidence calculation - confidence is already a percentage value
     const [avgConfidenceResult] = await db
       .select({ avg: sql<number>`avg(cast(confidence as decimal))` })
       .from(recognitionEvents);
@@ -136,7 +136,7 @@ export class DatabaseStorage implements IStorage {
       totalDetections: totalResult.count || 0,
       recognizedFaces: recognizedResult.count || 0,
       unknownFaces: unknownResult.count || 0,
-      averageConfidence: Math.round((avgConfidenceResult.avg || 0) * 100)
+      averageConfidence: Math.round(avgConfidenceResult.avg || 100)
     };
   }
 

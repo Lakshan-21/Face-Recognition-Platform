@@ -103,10 +103,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Session tracking for face recognition
+  const recognitionSessions = new Map();
+  
   // Live Recognition Routes
   app.post("/api/recognize-faces", async (req, res) => {
     try {
-      const { imageData } = req.body;
+      const { imageData, sessionId } = req.body;
       
       if (!imageData) {
         return res.status(400).json({ error: "Image data is required" });
@@ -117,29 +120,49 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Only process if there are registered faces and randomly simulate detection
       const detectedFaces = [];
-      const hasDetection = Math.random() < 0.3; // 30% chance of detection
+      const hasDetection = Math.random() < 0.4; // 40% chance of detection
       
       if (registrations.length > 0 && hasDetection) {
         // Randomly select a registered person for detection
         const randomPerson = registrations[Math.floor(Math.random() * registrations.length)];
-        const confidence = 0.75 + Math.random() * 0.2; // 75-95% confidence
-        const isRecognized = confidence > 0.7;
+        const confidence = 95 + Math.random() * 5; // 95-100% confidence
+        const isRecognized = true;
         
-        detectedFaces.push({
-          bbox: [30, 25, 150, 120],
-          name: isRecognized ? randomPerson.name : "Unknown Person",
-          personId: isRecognized ? randomPerson.id : null,
-          confidence: Math.round(confidence * 100) / 100,
-          isRecognized: isRecognized
-        });
+        // Check if this person was already detected in this session
+        const currentSessionId = sessionId || 'default';
+        const sessionData = recognitionSessions.get(currentSessionId) || new Set();
+        
+        if (!sessionData.has(randomPerson.id)) {
+          // First time detecting this person in this session
+          sessionData.add(randomPerson.id);
+          recognitionSessions.set(currentSessionId, sessionData);
+          
+          detectedFaces.push({
+            bbox: [30, 25, 150, 120],
+            name: randomPerson.name,
+            personId: randomPerson.id,
+            confidence: Math.round(confidence),
+            isRecognized: isRecognized
+          });
 
-        // Only log actual detections, not empty frames
-        await storage.createRecognitionEvent({
-          personId: detectedFaces[0].personId || null,
-          personName: detectedFaces[0].name || "Unknown",
-          confidence: (detectedFaces[0].confidence * 100).toFixed(2),
-          isRecognized: detectedFaces[0].personId ? 1 : 0
-        });
+          // Log the detection event
+          await storage.createRecognitionEvent({
+            personId: randomPerson.id,
+            personName: randomPerson.name,
+            confidence: confidence.toFixed(0), // Store as whole number percentage
+            isRecognized: 1
+          });
+        } else {
+          // Person already detected in this session, show detection but don't log
+          detectedFaces.push({
+            bbox: [30, 25, 150, 120],
+            name: randomPerson.name,
+            personId: randomPerson.id,
+            confidence: Math.round(confidence),
+            isRecognized: isRecognized,
+            alreadyCounted: true
+          });
+        }
       }
 
       const recognitionResults = {
@@ -150,6 +173,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.json(recognitionResults);
 
+    } catch (error) {
+      res.status(500).json({ error: error instanceof Error ? error.message : String(error) });
+    }
+  });
+
+  // Reset recognition session
+  app.post("/api/reset-recognition-session", async (req, res) => {
+    try {
+      const { sessionId } = req.body;
+      const currentSessionId = sessionId || 'default';
+      recognitionSessions.delete(currentSessionId);
+      res.json({ success: true, message: "Recognition session reset" });
     } catch (error) {
       res.status(500).json({ error: error instanceof Error ? error.message : String(error) });
     }
