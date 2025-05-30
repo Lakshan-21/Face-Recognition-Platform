@@ -204,7 +204,7 @@ export default function FaceRegistrationForm() {
               <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
             </div>
             {isDropdownOpen && (
-              <div className="absolute top-full left-0 right-0 mt-1 bg-[#000000] border border-gray-600 rounded-md shadow-lg z-50 overflow-hidden">
+              <div className="absolute top-full left-0 right-0 mt-1 bg-[#000000] border-2 border-gray-500 rounded-md shadow-2xl z-50 overflow-hidden backdrop-blur-sm" style={{ backgroundColor: '#000000 !important', boxShadow: '0 10px 25px rgba(0, 0, 0, 0.8)' }}>
                 {["employee", "visitor", "contractor", "intern"].map((role) => (
                   <div
                     key={role}
