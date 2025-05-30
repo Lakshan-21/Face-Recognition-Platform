@@ -208,7 +208,7 @@ export default function FaceRegistrationForm() {
       {/* Recent Registrations */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Recent Registrations</CardTitle>
+          <CardTitle className="tracking-tight text-lg text-[#ffffff] font-bold">Recent Registrations</CardTitle>
           <CardDescription>Latest face registrations in the system</CardDescription>
         </CardHeader>
         <CardContent>
