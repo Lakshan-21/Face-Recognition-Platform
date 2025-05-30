@@ -75,7 +75,11 @@ export default function Dashboard() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <WebcamFeed mode="registration" />
+                  <WebcamFeed mode="registration" onFaceDetected={(faceData) => {
+                    // Pass face data to registration form component
+                    const event = new CustomEvent('faceDetected', { detail: faceData });
+                    window.dispatchEvent(event);
+                  }} />
                 </CardContent>
               </Card>
             </div>

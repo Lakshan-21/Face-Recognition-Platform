@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -32,6 +32,24 @@ export default function FaceRegistrationForm() {
   const [detectionStatus, setDetectionStatus] = useState<"waiting" | "detected" | "processing">("waiting");
   const { toast } = useToast();
   const queryClient = useQueryClient();
+
+  // Listen for face detection events from webcam
+  useEffect(() => {
+    const handleFaceDetectionEvent = (event: any) => {
+      const faceData = event.detail;
+      console.log("Face detected event:", faceData);
+      setFaceData(faceData);
+      setDetectionStatus("detected");
+      
+      toast({
+        title: "Face Detected",
+        description: `Face detected with ${Math.round(faceData.confidence * 100)}% confidence`,
+      });
+    };
+
+    window.addEventListener('faceDetected', handleFaceDetectionEvent);
+    return () => window.removeEventListener('faceDetected', handleFaceDetectionEvent);
+  }, [toast]);
 
   const form = useForm<RegistrationFormData>({
     resolver: zodResolver(registrationSchema),
@@ -74,6 +92,7 @@ export default function FaceRegistrationForm() {
   });
 
   const handleFaceDetected = (faceData: FaceData) => {
+    console.log("Face detected:", faceData);
     setFaceData(faceData);
     setDetectionStatus("detected");
     

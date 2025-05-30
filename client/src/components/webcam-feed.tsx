@@ -170,7 +170,7 @@ export default function WebcamFeed({ mode, onFaceDetected }: WebcamFeedProps) {
         
         {/* Status Overlays */}
         <div className="absolute top-4 left-4">
-          <Badge variant="secondary" className="bg-black bg-opacity-60 text-white">
+          <Badge variant="secondary" className="bg-primary text-primary-foreground">
             <Camera className="w-3 h-3 mr-1" />
             {isStreaming ? "Camera Active" : "Camera Inactive"}
           </Badge>
