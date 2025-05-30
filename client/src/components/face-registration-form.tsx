@@ -193,11 +193,12 @@ export default function FaceRegistrationForm() {
 
         <div>
           <Label htmlFor="department" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-[#ffffff]">Department (Optional)</Label>
-          <Input
+          <input
             id="department"
             placeholder="e.g., Engineering, Marketing"
             {...form.register("department")}
-            className="mt-1"
+            className="flex h-10 w-full rounded-md border border-gray-600 bg-[#000000] px-3 py-2 text-base text-[#ffffff] placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm mt-1"
+            style={{ backgroundColor: '#000000', color: '#ffffff' }}
           />
         </div>
 
