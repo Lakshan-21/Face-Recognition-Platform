@@ -126,7 +126,7 @@ export default function FaceRegistrationForm() {
       case "detected":
         return <CheckCircle className="w-4 h-4 text-green-500" />;
       case "processing":
-        return <Clock className="w-4 h-4 text-yellow-500 animate-spin" />;
+        return <Clock className="w-4 h-4 animate-spin" style={{ color: '#71767b' }} />;
       default:
         return <AlertCircle className="w-4 h-4 text-gray-400" />;
     }
