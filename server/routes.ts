@@ -237,91 +237,93 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Message is required" });
       }
 
-      // Get relevant data for context
+      // Get comprehensive data for context
       const registrations = await storage.getAllFaceRegistrations();
-      const recentEvents = await storage.getRecentRecognitionEvents(10);
+      const recentEvents = await storage.getRecentRecognitionEvents(20);
       const stats = await storage.getRecognitionStats();
+      const totalRegistrations = await storage.getRegistrationCount();
+      const todayEvents = await storage.getTodayRecognitionCount();
 
-      // Generate intelligent response using available data
+      // Try using OpenAI for intelligent responses first
       let response = "";
-      const lowerMessage = message.toLowerCase();
-
-      if (lowerMessage.includes("last") && (lowerMessage.includes("registered") || lowerMessage.includes("registration")) || lowerMessage.includes("most recent")) {
-        const recent = await storage.getRecentFaceRegistrations(1);
-        if (recent.length > 0) {
-          const person = recent[0];
-          const date = new Date(person.registeredAt).toLocaleString();
-          response = `The last registered user was ${person.name}, a ${person.role} in the ${person.department} department, registered on ${date}.`;
-        } else {
-          response = "No registrations found in the system yet.";
-        }
-      } else if (lowerMessage.includes("how many") && lowerMessage.includes("registered")) {
-        response = `There are currently ${registrations.length} people registered in the system.`;
-      } else if (lowerMessage.includes("recent activity") || lowerMessage.includes("show me recent") || lowerMessage.includes("recent events")) {
-        const recentRegistrations = await storage.getRecentFaceRegistrations(3);
-        const recentRecognitions = await storage.getRecentRecognitionEvents(5);
-        
-        let activityReport = "Recent Activity:\n\n";
-        
-        if (recentRegistrations.length > 0) {
-          activityReport += "Latest Registrations:\n";
-          recentRegistrations.forEach((reg: any, index: number) => {
-            const date = new Date(reg.registeredAt).toLocaleString();
-            activityReport += `${index + 1}. ${reg.name} (${reg.role}) - ${date}\n`;
-          });
-          activityReport += "\n";
-        }
-        
-        if (recentRecognitions.length > 0) {
-          activityReport += "Recent Face Recognition Events:\n";
-          recentRecognitions.forEach((event: any, index: number) => {
-            const date = new Date(event.detectedAt).toLocaleString();
-            activityReport += `${index + 1}. ${event.personName} detected - ${date}\n`;
-          });
-        }
-        
-        response = activityReport || "No recent activity found.";
-      } else if (lowerMessage.includes("system status") || lowerMessage.includes("status")) {
-        const totalRegistrations = await storage.getRegistrationCount();
-        const todayEvents = await storage.getTodayRecognitionCount();
-        
-        response = `System Status Report:
-
-🔹 Registration System: Active
-   - Total registered users: ${totalRegistrations}
-   - Database: Connected
-
-🔹 Recognition System: Active
-   - Total detections today: ${todayEvents}
-   - Processing status: Online
-   - Average confidence: ${stats.averageConfidence}%
-
-🔹 Overall Statistics:
-   - Total detections: ${stats.totalDetections}
-   - Recognized faces: ${stats.recognizedFaces}
-   - Unknown faces: ${stats.unknownFaces}
-
-System is fully operational.`;
-      } else if (lowerMessage.includes("statistics") || lowerMessage.includes("stats")) {
-        response = `System Statistics: ${stats.totalDetections} total detections, ${stats.recognizedFaces} recognized faces, ${stats.unknownFaces} unknown faces, with an average confidence of ${stats.averageConfidence}%.`;
-      } else if (lowerMessage.includes("when was") && lowerMessage.includes("registered")) {
-        // Extract name from question
-        const words = message.split(" ");
-        const nameIndex = words.findIndex((word: string) => word.toLowerCase() === "was") + 1;
-        if (nameIndex < words.length) {
-          const searchName = words[nameIndex].toLowerCase();
-          const person = registrations.find((r: any) => r.name.toLowerCase().includes(searchName));
-          if (person) {
-            const date = new Date(person.registeredAt).toLocaleString();
-            response = `${person.name} was registered on ${date}.`;
-          } else {
-            response = `No registration found for that person.`;
+      
+      try {
+        // Prepare context data for OpenAI
+        const contextData = {
+          registrations: registrations.map((reg: any) => ({
+            name: reg.name,
+            role: reg.role,
+            department: reg.department,
+            registeredAt: reg.registeredAt
+          })),
+          recentEvents: recentEvents.map((event: any) => ({
+            personName: event.personName,
+            detectedAt: event.detectedAt,
+            confidence: event.confidence
+          })),
+          stats: {
+            totalDetections: stats.totalDetections,
+            recognizedFaces: stats.recognizedFaces,
+            unknownFaces: stats.unknownFaces,
+            averageConfidence: stats.averageConfidence
+          },
+          systemInfo: {
+            totalRegistrations,
+            todayEvents,
+            currentDate: new Date().toISOString()
           }
+        };
+
+        // Call OpenAI API
+        const openAIResponse = await fetch('https://api.openai.com/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            model: 'gpt-3.5-turbo',
+            messages: [
+              {
+                role: 'system',
+                content: `You are an AI assistant for a face recognition platform. Answer questions using the provided real-time data. Be precise, helpful, and only use the actual data provided. Current system data: ${JSON.stringify(contextData)}`
+              },
+              {
+                role: 'user',
+                content: message
+              }
+            ],
+            max_tokens: 500,
+            temperature: 0.3
+          })
+        });
+
+        if (openAIResponse.ok) {
+          const openAIResult = await openAIResponse.json();
+          response = openAIResult.choices[0]?.message?.content || "I couldn't process your request.";
         } else {
-          response = "Could you please specify which person you're asking about?";
+          throw new Error('OpenAI API error');
         }
-      } else {
-        response = `I can help you with information about face registrations and system statistics. Currently, there are ${registrations.length} registered faces with ${recentEvents.length} recent detection events. You can ask me about registration details, statistics, or specific people.`;
+      } catch (error) {
+        // Fallback to rule-based responses if OpenAI fails
+        const lowerMessage = message.toLowerCase();
+
+        if (lowerMessage.includes("last") && (lowerMessage.includes("registered") || lowerMessage.includes("registration")) || lowerMessage.includes("most recent")) {
+          const recent = await storage.getRecentFaceRegistrations(1);
+          if (recent.length > 0) {
+            const person = recent[0];
+            const date = new Date(person.registeredAt).toLocaleString();
+            response = `The last registered user was ${person.name}, a ${person.role} in the ${person.department} department, registered on ${date}.`;
+          } else {
+            response = "No registrations found in the system yet.";
+          }
+        } else if (lowerMessage.includes("system status") || lowerMessage.includes("status")) {
+          response = `System Status: ${totalRegistrations} registered users, ${todayEvents} detections today. Overall: ${stats.totalDetections} total detections, ${stats.recognizedFaces} recognized, ${stats.unknownFaces} unknown. Average confidence: ${stats.averageConfidence}%. System operational.`;
+        } else if (lowerMessage.includes("statistics") || lowerMessage.includes("stats")) {
+          response = `System Statistics: ${stats.totalDetections} total detections, ${stats.recognizedFaces} recognized faces, ${stats.unknownFaces} unknown faces, with an average confidence of ${stats.averageConfidence}%.`;
+        } else {
+          response = `I can help you with information about face registrations and system statistics. Currently, there are ${registrations.length} registered faces with ${recentEvents.length} recent detection events. You can ask me about registration details, statistics, or specific people.`;
+        }
       }
       
       // Store chat message
