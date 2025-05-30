@@ -135,6 +135,46 @@ div:not(.card) {
   background-color: transparent !important;
 }
 
+/* Select dropdown styling fixes */
+[data-radix-select-content] {
+  background-color: #000000 !important;
+  border: 1px solid #333639 !important;
+  color: #E7E9EA !important;
+}
+
+[data-radix-select-item] {
+  background-color: #000000 !important;
+  color: #E7E9EA !important;
+}
+
+[data-radix-select-item]:hover,
+[data-radix-select-item][data-highlighted] {
+  background-color: #1A1A1A !important;
+  color: #E7E9EA !important;
+}
+
+/* Override radix select viewport */
+[data-radix-select-viewport] {
+  background-color: #000000 !important;
+}
+
+/* Additional select overrides */
+.select-content {
+  background-color: #000000 !important;
+  border: 1px solid #333639 !important;
+}
+
+.select-item {
+  color: #E7E9EA !important;
+  background-color: #000000 !important;
+}
+
+.select-item:hover,
+.select-item[data-highlighted] {
+  background-color: #1A1A1A !important;
+  color: #E7E9EA !important;
+}
+
 .dark {
   --background: 0 0 0; /* #000000 - X's pure black */
   --foreground: 247 249 249; /* #F7F9F9 - X's light text */
