@@ -281,6 +281,7 @@ export default function WebcamFeed({ mode, onFaceDetected, isActive = true }: We
             onClick={isStreaming ? stopCamera : startCamera}
             variant={isStreaming ? "destructive" : "default"}
             size="sm"
+            className={!isStreaming ? "bg-[#1d9bf0] hover:bg-[#1d9bf0]/90" : ""}
           >
             {isStreaming ? (
               <>
