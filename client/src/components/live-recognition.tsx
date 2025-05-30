@@ -213,7 +213,13 @@ export default function LiveRecognition() {
                     <div>
                       <div className="text-sm font-medium text-gray-900">{detection.name}</div>
                       <div className="text-xs text-gray-500">
-                        Position: {detection.bbox[0] < 50 ? "Left" : detection.bbox[0] > 50 ? "Right" : "Center"}
+                        Position: {(() => {
+                          const faceCenter = detection.bbox[0] + (detection.bbox[2] - detection.bbox[0]) / 2;
+                          const frameWidth = 640; // Standard webcam width
+                          if (faceCenter < frameWidth * 0.33) return "Left";
+                          if (faceCenter > frameWidth * 0.66) return "Right";
+                          return "Center";
+                        })()}
                       </div>
                     </div>
                   </div>
