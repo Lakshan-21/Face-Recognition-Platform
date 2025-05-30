@@ -160,7 +160,7 @@ export default function LiveRecognition() {
         {/* Live Statistics */}
         <Card>
           <CardHeader>
-            <CardTitle>Live Statistics</CardTitle>
+            <CardTitle className="text-2xl font-semibold leading-none tracking-tight text-[#ffffff]">Live Statistics</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="bg-gray-50 rounded-lg p-4">
@@ -188,7 +188,7 @@ export default function LiveRecognition() {
         {/* Current Detections */}
         <Card>
           <CardHeader>
-            <CardTitle>Current Frame</CardTitle>
+            <CardTitle className="text-2xl font-semibold leading-none tracking-tight text-[#ffffff]">Current Frame</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
@@ -239,7 +239,7 @@ export default function LiveRecognition() {
         {/* Recognition Log */}
         <Card>
           <CardHeader>
-            <CardTitle>Recognition Log</CardTitle>
+            <CardTitle className="text-2xl font-semibold leading-none tracking-tight text-[#ffffff]">Recognition Log</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2 max-h-64 overflow-y-auto">
