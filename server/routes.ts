@@ -244,86 +244,87 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const totalRegistrations = await storage.getRegistrationCount();
       const todayEvents = await storage.getTodayRecognitionCount();
 
-      // Try using OpenAI for intelligent responses first
+      // Generate intelligent responses using local data analysis
       let response = "";
       
-      try {
-        // Prepare context data for OpenAI
-        const contextData = {
-          registrations: registrations.map((reg: any) => ({
-            name: reg.name,
-            role: reg.role,
-            department: reg.department,
-            registeredAt: reg.registeredAt
-          })),
-          recentEvents: recentEvents.map((event: any) => ({
-            personName: event.personName,
-            detectedAt: event.detectedAt,
-            confidence: event.confidence
-          })),
-          stats: {
-            totalDetections: stats.totalDetections,
-            recognizedFaces: stats.recognizedFaces,
-            unknownFaces: stats.unknownFaces,
-            averageConfidence: stats.averageConfidence
-          },
-          systemInfo: {
-            totalRegistrations,
-            todayEvents,
-            currentDate: new Date().toISOString()
-          }
+      // Advanced data analysis function
+      const analyzeData = () => {
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        
+        // Analyze registrations by department
+        const departmentAnalysis = registrations.reduce((acc: any, reg: any) => {
+          acc[reg.department] = (acc[reg.department] || 0) + 1;
+          return acc;
+        }, {});
+        
+        // Analyze recognition events by time
+        const todayEvents = recentEvents.filter((event: any) => 
+          new Date(event.detectedAt) >= today
+        );
+        
+        // Calculate confidence trends
+        const confidenceValues = recentEvents.map((event: any) => event.confidence).filter(Boolean);
+        const avgConfidence = confidenceValues.length > 0 
+          ? (confidenceValues.reduce((sum: number, conf: number) => sum + conf, 0) / confidenceValues.length).toFixed(1)
+          : 0;
+        
+        return {
+          departmentBreakdown: departmentAnalysis,
+          todayActivity: todayEvents.length,
+          averageConfidence: avgConfidence,
+          totalRegistrations: registrations.length,
+          recentActivityCount: recentEvents.length
         };
+      };
 
-        // Call OpenAI API
-        const openAIResponse = await fetch('https://api.openai.com/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            model: 'gpt-3.5-turbo',
-            messages: [
-              {
-                role: 'system',
-                content: `You are an AI assistant for a face recognition platform. Answer questions using the provided real-time data. Be precise, helpful, and only use the actual data provided. Current system data: ${JSON.stringify(contextData)}`
-              },
-              {
-                role: 'user',
-                content: message
-              }
-            ],
-            max_tokens: 500,
-            temperature: 0.3
-          })
+      const dataAnalysis = analyzeData();
+      const lowerMessage = message.toLowerCase();
+
+      // Handle specific questions with intelligent analysis
+      if (lowerMessage.includes("trends") || lowerMessage.includes("patterns") || lowerMessage.includes("analysis")) {
+        const deptEntries = Object.entries(dataAnalysis.departmentBreakdown);
+        const deptBreakdown = deptEntries.map(([dept, count]) => `${dept}: ${count} users`).join(', ');
+        
+        response = `Data Trends Analysis:
+
+📊 Department Distribution: ${deptBreakdown}
+
+📈 Activity Patterns:
+- Total system detections: ${stats.totalDetections}
+- Recent detection events: ${dataAnalysis.recentActivityCount}
+- Today's activity: ${dataAnalysis.todayActivity} events
+- Recognition accuracy: ${dataAnalysis.averageConfidence}% average confidence
+
+🔍 Key Insights:
+- Recognition success rate: ${Math.round((stats.recognizedFaces / stats.totalDetections) * 100)}%
+- Unknown detection rate: ${Math.round((stats.unknownFaces / stats.totalDetections) * 100)}%
+- System shows ${stats.recognizedFaces > stats.unknownFaces ? 'good' : 'improving'} recognition performance
+
+The system demonstrates ${todayEvents > 0 ? 'active daily usage' : 'steady monitoring capability'} with consistent detection capabilities.`;
+      } else if (lowerMessage.includes("compare") && lowerMessage.includes("department")) {
+        const deptEntries = Object.entries(dataAnalysis.departmentBreakdown);
+        let comparison = "Department Comparison:\n\n";
+        deptEntries.forEach(([dept, count]) => {
+          comparison += `• ${dept}: ${count} registered users\n`;
         });
-
-        if (openAIResponse.ok) {
-          const openAIResult = await openAIResponse.json();
-          response = openAIResult.choices[0]?.message?.content || "I couldn't process your request.";
+        comparison += `\nTotal registered users: ${dataAnalysis.totalRegistrations}`;
+        response = comparison;
+      } else if (lowerMessage.includes("last") && (lowerMessage.includes("registered") || lowerMessage.includes("registration")) || lowerMessage.includes("most recent")) {
+        const recent = await storage.getRecentFaceRegistrations(1);
+        if (recent.length > 0) {
+          const person = recent[0];
+          const date = new Date(person.registeredAt).toLocaleString();
+          response = `The last registered user was ${person.name}, a ${person.role} in the ${person.department} department, registered on ${date}.`;
         } else {
-          throw new Error('OpenAI API error');
+          response = "No registrations found in the system yet.";
         }
-      } catch (error) {
-        // Fallback to rule-based responses if OpenAI fails
-        const lowerMessage = message.toLowerCase();
-
-        if (lowerMessage.includes("last") && (lowerMessage.includes("registered") || lowerMessage.includes("registration")) || lowerMessage.includes("most recent")) {
-          const recent = await storage.getRecentFaceRegistrations(1);
-          if (recent.length > 0) {
-            const person = recent[0];
-            const date = new Date(person.registeredAt).toLocaleString();
-            response = `The last registered user was ${person.name}, a ${person.role} in the ${person.department} department, registered on ${date}.`;
-          } else {
-            response = "No registrations found in the system yet.";
-          }
-        } else if (lowerMessage.includes("system status") || lowerMessage.includes("status")) {
-          response = `System Status: ${totalRegistrations} registered users, ${todayEvents} detections today. Overall: ${stats.totalDetections} total detections, ${stats.recognizedFaces} recognized, ${stats.unknownFaces} unknown. Average confidence: ${stats.averageConfidence}%. System operational.`;
-        } else if (lowerMessage.includes("statistics") || lowerMessage.includes("stats")) {
-          response = `System Statistics: ${stats.totalDetections} total detections, ${stats.recognizedFaces} recognized faces, ${stats.unknownFaces} unknown faces, with an average confidence of ${stats.averageConfidence}%.`;
-        } else {
-          response = `I can help you with information about face registrations and system statistics. Currently, there are ${registrations.length} registered faces with ${recentEvents.length} recent detection events. You can ask me about registration details, statistics, or specific people.`;
-        }
+      } else if (lowerMessage.includes("system status") || lowerMessage.includes("status")) {
+        response = `System Status: ${totalRegistrations} registered users, ${todayEvents} detections today. Overall: ${stats.totalDetections} total detections, ${stats.recognizedFaces} recognized, ${stats.unknownFaces} unknown. Average confidence: ${stats.averageConfidence}%. System operational.`;
+      } else if (lowerMessage.includes("statistics") || lowerMessage.includes("stats")) {
+        response = `System Statistics: ${stats.totalDetections} total detections, ${stats.recognizedFaces} recognized faces, ${stats.unknownFaces} unknown faces, with an average confidence of ${stats.averageConfidence}%.`;
+      } else {
+        response = `I can help you with information about face registrations and system statistics. Currently, there are ${registrations.length} registered faces with ${recentEvents.length} recent detection events. You can ask me about registration details, statistics, or specific people.`;
       }
       
       // Store chat message
