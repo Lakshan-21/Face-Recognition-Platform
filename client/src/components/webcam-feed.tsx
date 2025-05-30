@@ -18,7 +18,7 @@ interface FaceDetection {
   isRecognized?: boolean;
 }
 
-export default function WebcamFeed({ mode, onFaceDetected }: WebcamFeedProps) {
+export default function WebcamFeed({ mode, onFaceDetected, isActive = true }: WebcamFeedProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isStreaming, setIsStreaming] = useState(false);
@@ -143,16 +143,16 @@ export default function WebcamFeed({ mode, onFaceDetected }: WebcamFeedProps) {
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
     
-    // Only process for registration mode automatically
     if (isStreaming && mode === "registration") {
       intervalId = setInterval(processFaceDetection, 1000);
+    } else if (isStreaming && mode === "recognition" && isActive) {
+      intervalId = setInterval(processFaceDetection, 3000); // 3 second intervals for recognition
     }
-    // Recognition mode will be controlled manually
 
     return () => {
       if (intervalId) clearInterval(intervalId);
     };
-  }, [isStreaming, mode]);
+  }, [isStreaming, mode, isActive]);
 
   useEffect(() => {
     return () => {
