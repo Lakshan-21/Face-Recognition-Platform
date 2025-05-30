@@ -85,7 +85,7 @@ export default function Dashboard() {
 
             {/* Registration Form Section */}
             <div className="space-y-6">
-              <Card>
+              <Card className="text-[#ffffff]">
                 <CardHeader>
                   <CardTitle className="text-2xl font-semibold leading-none tracking-tight text-[#ffffff]">Register New Face</CardTitle>
                   <CardDescription>
