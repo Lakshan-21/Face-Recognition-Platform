@@ -224,7 +224,7 @@ export default function FaceRegistrationForm() {
                     {new Date(registration.registeredAt).toLocaleString()}
                   </div>
                   {registration.role && (
-                    <Badge variant="outline" className="text-xs mt-1">
+                    <Badge variant="outline" className="inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-xs mt-1 text-[#1d9bf0] bg-[#1d9bf0]">
                       {registration.role}
                     </Badge>
                   )}
