@@ -68,7 +68,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Face Detection and Encoding Route (Simplified for demo)
+  // Face Detection Route (Registration)
   app.post("/api/detect-face", async (req, res) => {
     try {
       const { imageData } = req.body;
@@ -77,35 +77,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Image data is required" });
       }
 
-      // Simulate realistic face detection - only detect faces 30% of the time
-      const hasDetection = Math.random() < 0.3;
+      // Call Python face detection service
+      const { spawn } = require('child_process');
+      const python = spawn('python3', ['python_service/face_detection.py', 'detect']);
       
-      if (hasDetection) {
-        const baseConfidence = 0.85 + Math.random() * 0.1; // 85-95% confidence range
-        const faceData = {
-          faces: [{
-            bbox: [25, 20, 75, 80],
-            encoding: new Array(128).fill(0).map(() => Math.random() * 2 - 1),
-            confidence: Math.round(baseConfidence * 100) / 100
-          }],
-          count: 1
-        };
+      let result = '';
+      let error = '';
 
-        await storage.createSystemLog({
-          level: "info",
-          message: "Face detection completed",
-          module: "face_detection",
-          metadata: { faceCount: faceData.count }
-        });
+      python.stdin.write(JSON.stringify({ imageData }));
+      python.stdin.end();
 
-        res.json(faceData);
-      } else {
-        // No face detected
-        res.json({
-          faces: [],
-          count: 0
-        });
-      }
+      python.stdout.on('data', (data: any) => {
+        result += data.toString();
+      });
+
+      python.stderr.on('data', (data: any) => {
+        error += data.toString();
+      });
+
+      python.on('close', async (code: number) => {
+        if (code !== 0) {
+          console.error('Python face detection error:', error);
+          return res.json({ faces: [], count: 0 });
+        }
+
+        try {
+          const faceData = JSON.parse(result);
+          
+          await storage.createSystemLog({
+            level: "info",
+            message: "Face detection completed",
+            module: "face_detection",
+            metadata: { faceCount: faceData.count }
+          });
+
+          res.json(faceData);
+        } catch (parseError) {
+          console.error('Error parsing face detection result:', parseError);
+          res.json({ faces: [], count: 0 });
+        }
+      });
 
     } catch (error) {
       res.status(500).json({ error: error instanceof Error ? error.message : String(error) });
@@ -198,18 +209,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-      const recognitionResults = {
-        detections: detectedFaces,
-        count: detectedFaces.length,
-        processing_time: `${Math.floor(Math.random() * 30 + 15)}ms`
-      };
-      
-      res.json(recognitionResults);
 
-    } catch (error) {
-      res.status(500).json({ error: error instanceof Error ? error.message : String(error) });
-    }
-  });
 
   // Reset recognition session
   app.post("/api/reset-recognition-session", async (req, res) => {
