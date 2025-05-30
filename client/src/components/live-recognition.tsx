@@ -178,7 +178,7 @@ export default function LiveRecognition() {
             </div>
             
             <div className="bg-gray-50 rounded-lg p-4">
-              <div className="text-2xl font-bold text-gray-700">{stats?.averageConfidence || '0'}%</div>
+              <div className="text-2xl font-bold text-[#bfbf00]">{stats?.averageConfidence || '0'}%</div>
               <div className="text-sm text-gray-600">Average Confidence</div>
             </div>
           </CardContent>
