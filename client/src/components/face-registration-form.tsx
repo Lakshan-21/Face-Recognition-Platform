@@ -152,7 +152,7 @@ export default function FaceRegistrationForm() {
             id="name"
             placeholder="Enter full name"
             {...form.register("name")}
-            className="flex h-10 w-full rounded-md border border-gray-600 px-3 py-2 text-base text-[#ffffff] placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm mt-1 bg-[#70788c00]"
+            className="flex h-10 w-full rounded-md border border-gray-600 px-3 py-2 text-base text-[#ffffff] placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm mt-1 bg-[#e8f0fe00]"
             style={{ backgroundColor: '#000000', color: '#ffffff' }}
           />
           {form.formState.errors.name && (
