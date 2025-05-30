@@ -87,6 +87,21 @@ html, body {
   padding: 16px !important;
 }
 
+/* Input field styling - force black background and white text */
+input[type="text"], input[type="email"], input[type="password"], input {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #2F3336 !important;
+  border-radius: 6px !important;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input:focus {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  outline: none !important;
+  border-color: #1D9BF0 !important;
+}
+
 /* Button styling like X */
 button:not([role="tab"]) {
   background-color: #1D9BF0 !important;
