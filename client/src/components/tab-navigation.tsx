@@ -19,6 +19,11 @@ export default function TabNavigation({ activeTab, onTabChange }: TabNavigationP
       icon: Video,
     },
     {
+      id: "search" as const,
+      label: "Search",
+      icon: Search,
+    },
+    {
       id: "chat" as const,
       label: "AI Chat",
       icon: MessageSquare,
