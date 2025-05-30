@@ -178,19 +178,34 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getSystemLogs(level: string, module: string, limit: number): Promise<SystemLog[]> {
-    let query = db.select().from(systemLogs);
-
-    if (level !== 'all') {
-      query = query.where(eq(systemLogs.level, level));
+    if (level !== 'all' && module !== 'all') {
+      return await db
+        .select()
+        .from(systemLogs)
+        .where(and(eq(systemLogs.level, level), eq(systemLogs.module, module)))
+        .orderBy(desc(systemLogs.timestamp))
+        .limit(limit);
+    } else if (level !== 'all') {
+      return await db
+        .select()
+        .from(systemLogs)
+        .where(eq(systemLogs.level, level))
+        .orderBy(desc(systemLogs.timestamp))
+        .limit(limit);
+    } else if (module !== 'all') {
+      return await db
+        .select()
+        .from(systemLogs)
+        .where(eq(systemLogs.module, module))
+        .orderBy(desc(systemLogs.timestamp))
+        .limit(limit);
+    } else {
+      return await db
+        .select()
+        .from(systemLogs)
+        .orderBy(desc(systemLogs.timestamp))
+        .limit(limit);
     }
-
-    if (module !== 'all') {
-      query = query.where(eq(systemLogs.module, module));
-    }
-
-    return await query
-      .orderBy(desc(systemLogs.timestamp))
-      .limit(limit);
   }
 }
 
