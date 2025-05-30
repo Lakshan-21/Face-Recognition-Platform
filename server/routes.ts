@@ -281,6 +281,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         
         response = activityReport || "No recent activity found.";
+      } else if (lowerMessage.includes("system status") || lowerMessage.includes("status")) {
+        const totalRegistrations = await storage.getRegistrationCount();
+        const todayEvents = await storage.getTodayRecognitionCount();
+        
+        response = `System Status Report:
+
+🔹 Registration System: Active
+   - Total registered users: ${totalRegistrations}
+   - Database: Connected
+
+🔹 Recognition System: Active
+   - Total detections today: ${todayEvents}
+   - Processing status: Online
+   - Average confidence: ${stats.averageConfidence}%
+
+🔹 Overall Statistics:
+   - Total detections: ${stats.totalDetections}
+   - Recognized faces: ${stats.recognizedFaces}
+   - Unknown faces: ${stats.unknownFaces}
+
+System is fully operational.`;
       } else if (lowerMessage.includes("statistics") || lowerMessage.includes("stats")) {
         response = `System Statistics: ${stats.totalDetections} total detections, ${stats.recognizedFaces} recognized faces, ${stats.unknownFaces} unknown faces, with an average confidence of ${stats.averageConfidence}%.`;
       } else if (lowerMessage.includes("when was") && lowerMessage.includes("registered")) {
