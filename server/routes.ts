@@ -146,8 +146,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
           sessionData.add(randomPerson.id);
           recognitionSessions.set(currentSessionId, sessionData);
           
+          // Generate realistic bounding box coordinates for different positions
+          const frameWidth = 640;
+          const frameHeight = 480;
+          const faceWidth = 120;
+          const faceHeight = 95;
+          
+          // Random position across the frame
+          const randomX = Math.floor(Math.random() * (frameWidth - faceWidth));
+          const randomY = Math.floor(Math.random() * (frameHeight - faceHeight) * 0.6) + 25; // Keep faces in upper 60% of frame
+          
           detectedFaces.push({
-            bbox: [30, 25, 150, 120],
+            bbox: [randomX, randomY, randomX + faceWidth, randomY + faceHeight],
             name: randomPerson.name,
             personId: randomPerson.id,
             confidence: Math.round(confidence),
@@ -163,8 +173,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
           });
         } else {
           // Person already detected in this session, show detection but don't log
+          // Generate realistic bounding box coordinates for different positions
+          const frameWidth = 640;
+          const frameHeight = 480;
+          const faceWidth = 120;
+          const faceHeight = 95;
+          
+          // Random position across the frame
+          const randomX = Math.floor(Math.random() * (frameWidth - faceWidth));
+          const randomY = Math.floor(Math.random() * (frameHeight - faceHeight) * 0.6) + 25; // Keep faces in upper 60% of frame
+          
           detectedFaces.push({
-            bbox: [30, 25, 150, 120],
+            bbox: [randomX, randomY, randomX + faceWidth, randomY + faceHeight],
             name: randomPerson.name,
             personId: randomPerson.id,
             confidence: Math.round(confidence),
