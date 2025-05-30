@@ -17,11 +17,11 @@ interface ChatMessage {
 }
 
 const sampleQueries = [
-  "How many people are registered in the system?",
-  "What are today's recognition statistics?",
-  "Who was the last person to register?",
-  "What is the current system status?",
-  "How many face detections happened today?",
+  "What can you help me with?",
+  "How does the system work?",
+  "What features are available?",
+  "Tell me about the platform",
+  "Show me system overview",
 ];
 
 export default function ChatInterface() {
