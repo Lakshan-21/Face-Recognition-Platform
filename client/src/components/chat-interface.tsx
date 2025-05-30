@@ -17,11 +17,11 @@ interface ChatMessage {
 }
 
 const sampleQueries = [
-  "What can you help me with?",
-  "How does the system work?",
-  "What features are available?",
-  "Tell me about the platform",
-  "Show me system overview",
+  "Who was the last registered user?",
+  "How many people are registered?",
+  "What are today's recognition stats?",
+  "Show me recent activity",
+  "What's the system status?",
 ];
 
 export default function ChatInterface() {
