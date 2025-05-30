@@ -146,32 +146,45 @@ export default function FaceRegistrationForm() {
   return (
     <div className="space-y-6">
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <div className="mb-6">
-          <Label htmlFor="name" className="text-sm font-medium text-[#ffffff] mb-2 block">Person Name *</Label>
-          <div style={{ backgroundColor: '#000000', padding: '1px', borderRadius: '6px', marginTop: '8px' }}>
-            <input
-              id="name"
-              placeholder="Enter full name"
-              {...form.register("name")}
-              style={{ 
-                backgroundColor: '#000000',
-                color: '#ffffff',
-                border: '1px solid #2F3336',
-                borderRadius: '6px',
-                padding: '8px 12px',
-                width: '100%',
-                height: '40px',
-                fontSize: '14px',
-                outline: 'none',
-                WebkitAppearance: 'none',
-                MozAppearance: 'none',
-                appearance: 'none',
-                fontFamily: 'inherit'
-              }}
-            />
-          </div>
+        <div style={{ marginBottom: '24px' }}>
+          <label 
+            htmlFor="name" 
+            style={{ 
+              display: 'block', 
+              fontSize: '14px', 
+              fontWeight: '500', 
+              color: '#ffffff', 
+              marginBottom: '8px' 
+            }}
+          >
+            Person Name *
+          </label>
+          <input
+            id="name"
+            type="text"
+            placeholder="Enter full name"
+            {...form.register("name")}
+            style={{ 
+              backgroundColor: '#000000',
+              color: '#ffffff',
+              border: '1px solid #2F3336',
+              borderRadius: '6px',
+              padding: '10px 12px',
+              width: '100%',
+              height: '42px',
+              fontSize: '14px',
+              outline: 'none',
+              boxSizing: 'border-box',
+              fontFamily: 'inherit',
+              WebkitAppearance: 'none',
+              MozAppearance: 'none',
+              appearance: 'none'
+            }}
+          />
           {form.formState.errors.name && (
-            <p className="text-sm text-red-500 mt-1">{form.formState.errors.name.message}</p>
+            <p style={{ fontSize: '12px', color: '#ef4444', marginTop: '4px' }}>
+              {form.formState.errors.name.message}
+            </p>
           )}
         </div>
 
@@ -206,30 +219,41 @@ export default function FaceRegistrationForm() {
           </div>
         </div>
 
-        <div className="mb-6">
-          <Label htmlFor="department" className="text-sm font-medium text-[#ffffff] mb-2 block">Department (Optional)</Label>
-          <div style={{ backgroundColor: '#000000', padding: '1px', borderRadius: '6px', marginTop: '8px' }}>
-            <input
-              id="department"
-              placeholder="e.g., Engineering, Marketing"
-              {...form.register("department")}
-              style={{ 
-                backgroundColor: '#000000',
-                color: '#ffffff',
-                border: '1px solid #2F3336',
-                borderRadius: '6px',
-                padding: '8px 12px',
-                width: '100%',
-                height: '40px',
-                fontSize: '14px',
-                outline: 'none',
-                WebkitAppearance: 'none',
-                MozAppearance: 'none',
-                appearance: 'none',
-                fontFamily: 'inherit'
-              }}
-            />
-          </div>
+        <div style={{ marginBottom: '24px' }}>
+          <label 
+            htmlFor="department" 
+            style={{ 
+              display: 'block', 
+              fontSize: '14px', 
+              fontWeight: '500', 
+              color: '#ffffff', 
+              marginBottom: '8px' 
+            }}
+          >
+            Department (Optional)
+          </label>
+          <input
+            id="department"
+            type="text"
+            placeholder="e.g., Engineering, Marketing"
+            {...form.register("department")}
+            style={{ 
+              backgroundColor: '#000000',
+              color: '#ffffff',
+              border: '1px solid #2F3336',
+              borderRadius: '6px',
+              padding: '10px 12px',
+              width: '100%',
+              height: '42px',
+              fontSize: '14px',
+              outline: 'none',
+              boxSizing: 'border-box',
+              fontFamily: 'inherit',
+              WebkitAppearance: 'none',
+              MozAppearance: 'none',
+              appearance: 'none'
+            }}
+          />
         </div>
 
         <div className="bg-gray-50 rounded-lg p-4">
