@@ -7,12 +7,11 @@ import FaceRegistrationForm from "@/components/face-registration-form";
 import LiveRecognition from "@/components/live-recognition";
 import ChatInterface from "@/components/chat-interface";
 import PredictiveSearch from "@/components/predictive-search";
-import AdvancedSearch from "@/components/advanced-search";
 import { useQuery } from "@tanstack/react-query";
 import { Circle } from "lucide-react";
 import faceLogo from "@assets/FACE (1).png";
 
-type Tab = "registration" | "recognition" | "chat" | "search";
+type Tab = "registration" | "recognition" | "chat";
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<Tab>("registration");
@@ -129,16 +128,6 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
             </div>
-          </div>
-        )}
-
-        {activeTab === "search" && (
-          <div className="max-w-4xl mx-auto">
-            <AdvancedSearch 
-              onResultsChange={(results) => {
-                console.log("Search results updated:", results);
-              }}
-            />
           </div>
         )}
 
