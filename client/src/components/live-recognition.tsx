@@ -155,7 +155,6 @@ export default function LiveRecognition() {
           </div>
         </CardContent>
       </Card>
-
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Live Statistics */}
         <Card>
@@ -249,7 +248,7 @@ export default function LiveRecognition() {
                     <div className={`w-2 h-2 rounded-full ${
                       event.isRecognized ? "bg-green-500" : "bg-orange-500"
                     }`} />
-                    <span className="font-medium text-gray-900">{event.personName}</span>
+                    <span className="font-medium text-[#71767b]">{event.personName}</span>
                   </div>
                   <span className="text-gray-500 text-xs">
                     {new Date(event.detectedAt).toLocaleTimeString()}
