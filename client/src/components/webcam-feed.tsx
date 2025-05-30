@@ -13,6 +13,8 @@ interface FaceDetection {
   bbox: [number, number, number, number];
   confidence: number;
   encoding?: number[];
+  name?: string;
+  isRecognized?: boolean;
 }
 
 export default function WebcamFeed({ mode, onFaceDetected }: WebcamFeedProps) {
@@ -92,7 +94,10 @@ export default function WebcamFeed({ mode, onFaceDetected }: WebcamFeedProps) {
     if (!imageData) return;
 
     try {
-      const response = await fetch('/api/detect-face', {
+      // Use different endpoints based on mode
+      const endpoint = mode === "recognition" ? '/api/recognize-faces' : '/api/detect-face';
+      
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ imageData })
@@ -100,14 +105,26 @@ export default function WebcamFeed({ mode, onFaceDetected }: WebcamFeedProps) {
 
       if (response.ok) {
         const result = await response.json();
-        setFaceDetections(result.faces || []);
         
-        if (mode === "registration" && result.faces?.length > 0 && onFaceDetected) {
-          onFaceDetected(result.faces[0]);
+        if (mode === "recognition" && result.detections) {
+          // Handle recognition mode - show detected faces with names
+          setFaceDetections(result.detections.map((detection: any) => ({
+            bbox: detection.bbox,
+            confidence: detection.confidence,
+            name: detection.name,
+            isRecognized: detection.isRecognized
+          })));
+        } else if (mode === "registration" && result.faces) {
+          // Handle registration mode - standard face detection
+          setFaceDetections(result.faces || []);
+          
+          if (result.faces?.length > 0 && onFaceDetected) {
+            onFaceDetected(result.faces[0]);
+          }
         }
       }
     } catch (error) {
-      console.error("Face detection error:", error);
+      console.error("Face processing error:", error);
     }
 
     const endTime = performance.now();
@@ -162,8 +179,15 @@ export default function WebcamFeed({ mode, onFaceDetected }: WebcamFeedProps) {
               height: `${detection.bbox[3] - detection.bbox[1]}%`,
             }}
           >
-            <div className="absolute -top-6 left-0 bg-blue-500 text-white px-2 py-1 rounded text-xs">
-              Face Detected ({Math.round(detection.confidence * 100)}%)
+            <div className={`absolute -top-6 left-0 text-white px-2 py-1 rounded text-xs ${
+              mode === "recognition" && detection.name 
+                ? (detection.isRecognized ? "bg-green-500" : "bg-orange-500")
+                : "bg-blue-500"
+            }`}>
+              {mode === "recognition" && detection.name 
+                ? `${detection.name} (${Math.round(detection.confidence * 100)}%)`
+                : `Face Detected (${Math.round(detection.confidence * 100)}%)`
+              }
             </div>
           </div>
         ))}
