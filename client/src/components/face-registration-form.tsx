@@ -180,7 +180,7 @@ export default function FaceRegistrationForm() {
                       form.setValue("role", role);
                       setIsDropdownOpen(false);
                     }}
-                    className="p-3 cursor-pointer text-[#ffffff] hover:text-[#1d9bf0] transition-colors duration-200 bg-[black]"
+                    className="p-3 cursor-pointer text-[#ffffff] hover:text-[#1d9bf0] transition-colors duration-200 bg-[#000000]"
                     style={{ backgroundColor: '#000000' }}
                   >
                     {role.charAt(0).toUpperCase() + role.slice(1)}
