@@ -38,8 +38,8 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className="flex items-center space-x-2">
-                <Badge variant="secondary" className="bg-accent text-accent-foreground">
-                  <div className="w-2 h-2 bg-accent-foreground rounded-full animate-pulse mr-2" />
+                <Badge variant="secondary" className="bg-accent text-[#1d9bf0]">
+                  <div className="w-2 h-2 bg-[#1d9bf0] rounded-full animate-pulse mr-2" />
                   System Active
                 </Badge>
               </div>
