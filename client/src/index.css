@@ -116,6 +116,28 @@ input::-moz-placeholder { color: #8B98A5 !important; }
 input:-ms-input-placeholder { color: #8B98A5 !important; }
 input::placeholder { color: #8B98A5 !important; }
 
+/* Super specific targeting for form inputs */
+#name, #department {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #2F3336 !important;
+}
+
+#name:focus, #department:focus {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #1D9BF0 !important;
+}
+
+/* Force override any component styles */
+form input {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
 /* Button styling like X */
 button:not([role="tab"]) {
   background-color: #1D9BF0 !important;
