@@ -138,6 +138,23 @@ form input {
   color: #ffffff !important;
 }
 
+/* Ultra specific targeting */
+input[id="name"], input[id="department"] {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  background-image: none !important;
+  -webkit-background-clip: padding-box !important;
+  background-clip: padding-box !important;
+}
+
+/* Force it with attribute selector */
+input[style*="backgroundColor"] {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
 /* Button styling like X */
 button:not([role="tab"]) {
   background-color: #1D9BF0 !important;

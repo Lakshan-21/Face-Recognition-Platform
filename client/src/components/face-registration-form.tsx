@@ -165,6 +165,7 @@ export default function FaceRegistrationForm() {
             placeholder="Enter full name"
             {...form.register("name")}
             style={{ 
+              all: 'unset',
               backgroundColor: '#000000',
               color: '#ffffff',
               border: '1px solid #2F3336',
@@ -173,12 +174,9 @@ export default function FaceRegistrationForm() {
               width: '100%',
               height: '42px',
               fontSize: '14px',
-              outline: 'none',
+              display: 'block',
               boxSizing: 'border-box',
-              fontFamily: 'inherit',
-              WebkitAppearance: 'none',
-              MozAppearance: 'none',
-              appearance: 'none'
+              fontFamily: 'inherit'
             }}
           />
           {form.formState.errors.name && (
@@ -238,6 +236,7 @@ export default function FaceRegistrationForm() {
             placeholder="e.g., Engineering, Marketing"
             {...form.register("department")}
             style={{ 
+              all: 'unset',
               backgroundColor: '#000000',
               color: '#ffffff',
               border: '1px solid #2F3336',
@@ -246,12 +245,9 @@ export default function FaceRegistrationForm() {
               width: '100%',
               height: '42px',
               fontSize: '14px',
-              outline: 'none',
+              display: 'block',
               boxSizing: 'border-box',
-              fontFamily: 'inherit',
-              WebkitAppearance: 'none',
-              MozAppearance: 'none',
-              appearance: 'none'
+              fontFamily: 'inherit'
             }}
           />
         </div>
