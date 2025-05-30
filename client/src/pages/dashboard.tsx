@@ -132,7 +132,7 @@ export default function Dashboard() {
             <div className="space-y-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>RAG System Status</CardTitle>
+                  <CardTitle className="text-2xl leading-none tracking-tight text-[#ffffff] font-bold">RAG System Status</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
