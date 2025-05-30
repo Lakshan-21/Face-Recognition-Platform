@@ -37,19 +37,18 @@ export default function TabNavigation({ activeTab, onTabChange }: TabNavigationP
           {tabs.map((tab) => {
             const Icon = tab.icon;
             return (
-              <Button
+              <div
                 key={tab.id}
-                variant={activeTab === tab.id ? "default" : "ghost"}
-                className={`px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-200 ${
+                className={`px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-200 cursor-pointer ${
                   activeTab === tab.id
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "text-muted-foreground hover:text-foreground hover:bg-background"
                 }`}
                 onClick={() => onTabChange(tab.id)}
               >
-                <Icon className="w-4 h-4 mr-2" />
+                <Icon className="w-4 h-4 mr-2 inline" />
                 {tab.label}
-              </Button>
+              </div>
             );
           })}
         </div>
