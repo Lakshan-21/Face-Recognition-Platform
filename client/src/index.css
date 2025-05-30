@@ -25,6 +25,40 @@
   --radius: 0.5rem; /* Moderate rounding like X */
 }
 
+/* Force X styling - Override everything */
+* {
+  color: white !important;
+}
+
+body, html {
+  background-color: #000000 !important;
+  color: #FFFFFF !important;
+}
+
+.card, [class*="card"] {
+  background-color: #16181C !important;
+  color: #FFFFFF !important;
+  border-color: #2F3336 !important;
+}
+
+.btn, button, [class*="button"] {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+  border-radius: 20px !important;
+}
+
+.btn-outline, [class*="outline"] {
+  background-color: transparent !important;
+  color: #FFFFFF !important;
+  border-color: #2F3336 !important;
+}
+
+input, textarea, select {
+  background-color: #202327 !important;
+  color: #FFFFFF !important;
+  border-color: #2F3336 !important;
+}
+
 .dark {
   --background: 0 0 0; /* #000000 - X's pure black */
   --foreground: 247 249 249; /* #F7F9F9 - X's light text */
