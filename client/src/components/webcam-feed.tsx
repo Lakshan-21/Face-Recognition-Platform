@@ -201,19 +201,29 @@ export default function WebcamFeed({ mode, onFaceDetected, isActive = true }: We
         {faceDetections.map((detection, index) => (
           <div
             key={index}
-            className="absolute border-2 border-blue-500 rounded"
+            className="absolute rounded"
             style={{
               left: `${detection.bbox[0]}%`,
               top: `${detection.bbox[1]}%`,
               width: `${detection.bbox[2] - detection.bbox[0]}%`,
               height: `${detection.bbox[3] - detection.bbox[1]}%`,
+              border: mode === "recognition" && detection.name 
+                ? (detection.isRecognized ? "4px solid #16a34a" : "4px solid #ea580c")
+                : "4px solid #3b82f6",
+              boxShadow: mode === "recognition" && detection.name 
+                ? (detection.isRecognized ? "0 0 0 2px rgba(22, 163, 74, 0.3)" : "0 0 0 2px rgba(234, 88, 12, 0.3)")
+                : "0 0 0 2px rgba(59, 130, 246, 0.3)",
             }}
           >
-            <div className={`absolute -top-6 left-0 text-white px-2 py-1 rounded text-xs ${
+            <div className={`absolute -top-8 left-0 px-3 py-1 rounded-md text-sm font-bold shadow-lg ${
               mode === "recognition" && detection.name 
-                ? (detection.isRecognized ? "bg-green-500" : "bg-orange-500")
-                : "bg-blue-500"
-            }`}>
+                ? (detection.isRecognized ? "bg-green-600 text-white" : "bg-orange-600 text-white")
+                : "bg-blue-600 text-white"
+            }`}
+            style={{
+              textShadow: "1px 1px 2px rgba(0, 0, 0, 0.8)",
+              minWidth: "max-content"
+            }}>
               {mode === "recognition" && detection.name 
                 ? `${detection.name} (${Math.round(detection.confidence * 100)}%)`
                 : `Face Detected (${Math.round(detection.confidence * 100)}%)`
