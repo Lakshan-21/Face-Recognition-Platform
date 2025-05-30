@@ -147,8 +147,8 @@ export default function FaceRegistrationForm() {
     <div className="space-y-6">
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div style={{ marginBottom: '24px' }}>
-          <label 
-            htmlFor="name" 
+          <label
+            htmlFor="name"
             style={{ 
               display: 'block', 
               fontSize: '14px', 
@@ -156,9 +156,7 @@ export default function FaceRegistrationForm() {
               color: '#ffffff', 
               marginBottom: '8px' 
             }}
-          >
-            Person Name *
-          </label>
+            className="text-[#71767b]">Person Name </label>
           <input
             id="name"
             type="text"
