@@ -146,7 +146,7 @@ export default function ChatInterface() {
               <Bot className="w-5 h-5 text-white" />
             </div>
             <div>
-              <CardTitle>AI Assistant</CardTitle>
+              <CardTitle className="text-2xl leading-none tracking-tight text-[#ffffff] font-bold">AI Assistant</CardTitle>
               <p className="text-sm text-gray-500">Ask questions about face registrations</p>
             </div>
           </div>
