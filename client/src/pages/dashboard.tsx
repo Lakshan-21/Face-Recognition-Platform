@@ -114,7 +114,7 @@ export default function Dashboard() {
                 <CardContent>
                   <div className="space-y-4">
                     <div className="bg-muted rounded-lg p-4">
-                      <div className="text-2xl font-bold text-foreground">{(systemStatus as any)?.todayEvents || 0}</div>
+                      <div className="text-2xl font-bold text-[#ffffff]">{(systemStatus as any)?.todayEvents || 0}</div>
                       <div className="text-sm text-muted-foreground">Total Detections Today</div>
                     </div>
                   </div>
