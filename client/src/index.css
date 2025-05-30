@@ -6,7 +6,7 @@
   --background: 0 0 0; /* #000000 - X's black background */
   --foreground: 255 255 255; /* #FFFFFF - X's white text */
   --muted: 22 24 28; /* #16181C - X's dark gray */
-  --muted-foreground: 139 152 165; /* #8B98A5 - X's secondary text */
+  --muted-foreground: 113 118 123; /* #71767B - X's secondary text */
   --popover: 0 0 0; /* #000000 */
   --popover-foreground: 255 255 255; /* #FFFFFF */
   --card: 22 24 28; /* #16181C - X's card background */
