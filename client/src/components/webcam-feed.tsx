@@ -27,10 +27,15 @@ export default function WebcamFeed({ mode, onFaceDetected }: WebcamFeedProps) {
 
   const startCamera = async () => {
     try {
+      // Check if getUserMedia is supported
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error("Camera access not supported in this browser");
+      }
+
       const stream = await navigator.mediaDevices.getUserMedia({
         video: {
-          width: { ideal: 1280 },
-          height: { ideal: 720 },
+          width: { ideal: 640 },
+          height: { ideal: 480 },
           facingMode: "user"
         },
         audio: false
@@ -38,7 +43,9 @@ export default function WebcamFeed({ mode, onFaceDetected }: WebcamFeedProps) {
 
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
-        setIsStreaming(true);
+        videoRef.current.onloadedmetadata = () => {
+          setIsStreaming(true);
+        };
         
         toast({
           title: "Camera Started",

@@ -127,15 +127,16 @@ export class DatabaseStorage implements IStorage {
       .from(recognitionEvents)
       .where(eq(recognitionEvents.isRecognized, 0));
 
+    // Fix confidence calculation - convert string to number
     const [avgConfidenceResult] = await db
-      .select({ avg: sql<number>`avg(confidence)` })
+      .select({ avg: sql<number>`avg(cast(confidence as decimal))` })
       .from(recognitionEvents);
 
     return {
-      totalDetections: totalResult.count,
-      recognizedFaces: recognizedResult.count,
-      unknownFaces: unknownResult.count,
-      averageConfidence: Math.round(avgConfidenceResult.avg || 0)
+      totalDetections: totalResult.count || 0,
+      recognizedFaces: recognizedResult.count || 0,
+      unknownFaces: unknownResult.count || 0,
+      averageConfidence: Math.round((avgConfidenceResult.avg || 0) * 100)
     };
   }
 

@@ -131,12 +131,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         processing_time: `${Math.floor(Math.random() * 30 + 15)}ms`
       };
 
-      // Log recognition events
+      // Log recognition events with proper confidence values
       for (const result of recognitionResults.detections) {
         await storage.createRecognitionEvent({
           personId: result.personId || null,
           personName: result.name || "Unknown",
-          confidence: result.confidence.toString(),
+          confidence: (result.confidence * 100).toFixed(2), // Convert to percentage string
           isRecognized: result.personId ? 1 : 0
         });
       }

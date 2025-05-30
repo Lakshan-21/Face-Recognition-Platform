@@ -35,18 +35,25 @@ export default function LiveRecognition() {
   });
 
   // Fetch recent recognition events
-  const { data: recentEvents } = useQuery({
+  const { data: recentEvents = [] } = useQuery<any[]>({
     queryKey: ["/api/recognition-events/recent"],
     refetchInterval: 2000,
   });
 
   const handleStartRecognition = () => {
     setIsRecognizing(true);
+    setCurrentDetections([]);
   };
 
   const handleStopRecognition = () => {
     setIsRecognizing(false);
     setCurrentDetections([]);
+  };
+
+  const handleFaceDetection = (detectionResults: any) => {
+    if (isRecognizing && detectionResults?.detections) {
+      setCurrentDetections(detectionResults.detections);
+    }
   };
 
   const handleExportLog = () => {
@@ -83,7 +90,7 @@ export default function LiveRecognition() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <WebcamFeed mode="recognition" />
+          <WebcamFeed mode="recognition" onFaceDetected={handleFaceDetection} />
           
           {/* Recognition Controls */}
           <div className="flex items-center justify-between mt-4">
