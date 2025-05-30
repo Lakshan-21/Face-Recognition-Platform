@@ -173,7 +173,7 @@ export default function FaceRegistrationForm() {
         </div>
 
         <div>
-          <Label htmlFor="department">Department (Optional)</Label>
+          <Label htmlFor="department" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-[#ffffff]">Department (Optional)</Label>
           <Input
             id="department"
             placeholder="e.g., Engineering, Marketing"
