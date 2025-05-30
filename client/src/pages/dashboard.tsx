@@ -45,7 +45,7 @@ export default function Dashboard() {
             </div>
             <div className="flex items-center space-x-4">
               <div className="text-sm text-muted-foreground font-medium">
-                <span className="text-foreground font-semibold">{(systemStatus as any)?.registrationCount || 0}</span> registered faces
+                <span className="font-semibold text-[#ffffff]">{(systemStatus as any)?.registrationCount || 0}</span> registered faces
               </div>
               <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                 <Circle className="h-4 w-4 text-primary-foreground" />
@@ -54,10 +54,8 @@ export default function Dashboard() {
           </div>
         </div>
       </header>
-
       {/* Tab Navigation */}
       <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
-
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {activeTab === "registration" && (
