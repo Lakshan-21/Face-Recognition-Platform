@@ -66,7 +66,7 @@ export default function Dashboard() {
             <div className="space-y-6">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
+                  <CardTitle className="text-2xl font-semibold leading-none tracking-tight flex items-center justify-between text-[#ffffff]">
                     Camera Feed
                     <Badge variant="secondary" className="bg-green-100 text-green-800">
                       <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2" />
