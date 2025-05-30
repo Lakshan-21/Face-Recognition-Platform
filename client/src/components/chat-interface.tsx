@@ -37,7 +37,7 @@ export default function ChatInterface() {
   });
 
   // WebSocket connection for real-time chat
-  const { sendMessage: sendWebSocketMessage, lastMessage, connectionStatus } = useWebSocket('ws://localhost:5000');
+  const { sendMessage: sendWebSocketMessage, lastMessage, connectionStatus } = useWebSocket(`ws://${window.location.host}`);
 
   const chatMutation = useMutation({
     mutationFn: async (message: string) => {

@@ -39,12 +39,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       await storage.createSystemLog({
         level: "error",
-        message: `Face registration failed: ${error.message}`,
+        message: `Face registration failed: ${error instanceof Error ? error.message : String(error)}`,
         module: "face_registration",
-        metadata: { error: error.message }
+        metadata: { error: error instanceof Error ? error.message : String(error) }
       });
       
-      res.status(400).json({ error: error.message });
+      res.status(400).json({ error: error instanceof Error ? error.message : String(error) });
     }
   });
 
@@ -320,30 +320,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const { type, payload } = JSON.parse(data.toString());
         
         if (type === 'chat_message') {
-          // Handle real-time chat message
-          const response = await fetch(`http://localhost:5000/api/chat`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: payload.message })
-          });
+          // Handle chat message directly without fetch
+          const { message } = payload;
           
-          const result = await response.json();
+          if (!message) {
+            ws.send(JSON.stringify({
+              type: 'error',
+              payload: { error: "Message is required" }
+            }));
+            return;
+          }
+
+          // Get relevant data for RAG context
+          const registrations = await storage.getAllFaceRegistrations();
+          const recentEvents = await storage.getRecentRecognitionEvents(100);
+          const stats = await storage.getRecognitionStats();
+
+          // For now, send a simple response since Python RAG service needs setup
+          const response = `I received your message: "${message}". The face recognition system currently has ${registrations?.length || 0} registered faces and ${recentEvents?.length || 0} recent detection events.`;
+          
+          // Store chat message
+          await storage.createChatMessage({
+            message,
+            response
+          });
           
           ws.send(JSON.stringify({
             type: 'chat_response',
             payload: {
               message: payload.message,
-              response: result.response,
+              response,
               timestamp: new Date().toISOString()
             }
           }));
         }
       } catch (error) {
+        console.error('WebSocket error:', error);
         ws.send(JSON.stringify({
           type: 'error',
           payload: { error: error.message }
         }));
       }
+    });
+    
+    ws.on('error', (error) => {
+      console.error('WebSocket connection error:', error);
     });
     
     ws.on('close', () => {
