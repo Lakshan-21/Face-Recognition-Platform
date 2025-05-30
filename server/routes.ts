@@ -151,8 +151,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           // First time detecting this person - establish initial position
           const frameWidth = 640;
           const frameHeight = 480;
-          const faceWidth = 250; // Much larger face width for better visibility
-          const faceHeight = 200; // Much larger face height for better visibility
+          const faceSize = 300; // Large square bounding box for maximum visibility
+          const faceWidth = faceSize;
+          const faceHeight = faceSize;
           
           // Center the face in the frame for initial detection
           const centerX = (frameWidth - faceWidth) / 2;
