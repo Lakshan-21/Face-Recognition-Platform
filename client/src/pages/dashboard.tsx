@@ -21,34 +21,34 @@ export default function Dashboard() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
+      <header className="bg-card border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                  <Circle className="h-4 w-4 text-white" />
+                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                  <Circle className="h-4 w-4 text-primary-foreground" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-semibold text-gray-900">Face Recognition Platform</h1>
-                  <p className="text-xs text-gray-500">Katomaran Hackathon 2025</p>
+                  <h1 className="text-xl font-bold text-foreground">Face Recognition Platform</h1>
+                  <p className="text-xs text-muted-foreground">Katomaran Hackathon 2025</p>
                 </div>
               </div>
               <div className="flex items-center space-x-2">
-                <Badge variant="secondary" className="bg-green-100 text-green-800">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2" />
+                <Badge variant="secondary" className="bg-accent text-accent-foreground">
+                  <div className="w-2 h-2 bg-accent-foreground rounded-full animate-pulse mr-2" />
                   System Active
                 </Badge>
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <div className="text-sm text-gray-600">
-                <span>{systemStatus?.registrationCount || 0}</span> registered faces
+              <div className="text-sm text-muted-foreground font-medium">
+                <span className="text-foreground font-semibold">{(systemStatus as any)?.registrationCount || 0}</span> registered faces
               </div>
               <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                <Circle className="h-4 w-4 text-white" />
+                <Circle className="h-4 w-4 text-primary-foreground" />
               </div>
             </div>
           </div>
@@ -109,9 +109,9 @@ export default function Dashboard() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="bg-gray-50 rounded-lg p-4">
-                      <div className="text-2xl font-bold text-primary">{systemStatus?.todayEvents || 0}</div>
-                      <div className="text-sm text-gray-600">Total Detections Today</div>
+                    <div className="bg-muted rounded-lg p-4">
+                      <div className="text-2xl font-bold text-foreground">{(systemStatus as any)?.todayEvents || 0}</div>
+                      <div className="text-sm text-muted-foreground">Total Detections Today</div>
                     </div>
                   </div>
                 </CardContent>
