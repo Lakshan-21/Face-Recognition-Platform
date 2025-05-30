@@ -178,9 +178,12 @@ export default function WebcamFeed({ mode, onFaceDetected, isActive = true }: We
 
   return (
     <div className="space-y-4">
-      <div className={`relative rounded-lg overflow-hidden aspect-video ${
-        isStreaming ? 'bg-black' : 'bg-gray-700'
-      }`}>
+      <div 
+        className="relative rounded-lg overflow-hidden aspect-video"
+        style={{ 
+          backgroundColor: isStreaming ? '#000000' : '#374151' 
+        }}
+      >
         <video
           ref={videoRef}
           autoPlay
@@ -235,10 +238,11 @@ export default function WebcamFeed({ mode, onFaceDetected, isActive = true }: We
         )}
         
         {!isStreaming && (
-          <div className="absolute inset-0 flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center border-2 border-dashed border-gray-500">
             <div className="text-center text-gray-300">
-              <Video className="w-12 h-12 mx-auto mb-2 opacity-50" />
-              <p className="text-sm">Camera not active</p>
+              <Video className="w-16 h-16 mx-auto mb-3 opacity-60" />
+              <p className="text-lg font-medium">Camera not active</p>
+              <p className="text-sm mt-1 opacity-75">Click "Start Camera" to begin</p>
             </div>
           </div>
         )}
