@@ -88,7 +88,7 @@ export default function Dashboard() {
             <div className="space-y-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>Register New Face</CardTitle>
+                  <CardTitle className="text-2xl font-semibold leading-none tracking-tight text-[#ffffff]">Register New Face</CardTitle>
                   <CardDescription>
                     Capture and register a new face in the system
                   </CardDescription>
