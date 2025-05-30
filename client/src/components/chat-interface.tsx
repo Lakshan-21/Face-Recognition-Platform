@@ -156,7 +156,6 @@ export default function ChatInterface() {
           </Badge>
         </div>
       </CardHeader>
-
       {/* Chat Messages */}
       <CardContent className="flex-1 overflow-y-auto p-6 space-y-4">
         {messages.map((message) => (
@@ -205,7 +204,6 @@ export default function ChatInterface() {
         
         <div ref={messagesEndRef} />
       </CardContent>
-
       {/* Chat Input */}
       <div className="p-6 border-t border-gray-200">
         <form onSubmit={handleSubmit} className="flex space-x-4">
@@ -226,7 +224,7 @@ export default function ChatInterface() {
 
         {/* Sample Queries */}
         <div className="mt-4">
-          <p className="text-sm text-gray-600 mb-2">Quick questions:</p>
+          <p className="text-sm mb-2 font-semibold text-[#ffffff]">Quick questions:</p>
           <div className="flex flex-wrap gap-2">
             {sampleQueries.map((query, index) => (
               <Button
