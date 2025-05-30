@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import TabNavigation from "@/components/tab-navigation";
@@ -7,61 +7,20 @@ import FaceRegistrationForm from "@/components/face-registration-form";
 import LiveRecognition from "@/components/live-recognition";
 import ChatInterface from "@/components/chat-interface";
 import PredictiveSearch from "@/components/predictive-search";
-import AdvancedSearch from "@/components/advanced-search";
-import SearchShortcuts from "@/components/search-shortcuts";
 import { useQuery } from "@tanstack/react-query";
 import { Circle } from "lucide-react";
 import faceLogo from "@assets/FACE (1).png";
 
-type Tab = "registration" | "recognition" | "search" | "chat";
+type Tab = "registration" | "recognition" | "chat";
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<Tab>("registration");
-  const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Fetch system status
   const { data: systemStatus } = useQuery({
     queryKey: ["/api/system/status"],
     refetchInterval: 5000, // Refresh every 5 seconds
   });
-
-  // Global keyboard shortcuts
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // Ctrl/Cmd + K to focus search
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-        e.preventDefault();
-        setActiveTab("search");
-        // Focus search input after a brief delay to ensure tab switch
-        setTimeout(() => {
-          const searchInput = document.querySelector('input[placeholder*="Search"]') as HTMLInputElement;
-          searchInput?.focus();
-        }, 100);
-      }
-      
-      // Ctrl/Cmd + F to open advanced search
-      if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
-        e.preventDefault();
-        setActiveTab("search");
-      }
-
-      // Number keys to switch tabs
-      if (e.key >= '1' && e.key <= '4' && !e.ctrlKey && !e.metaKey && !e.altKey) {
-        e.preventDefault();
-        const tabMap: { [key: string]: Tab } = {
-          '1': 'registration',
-          '2': 'recognition', 
-          '3': 'search',
-          '4': 'chat'
-        };
-        const newTab = tabMap[e.key];
-        if (newTab) setActiveTab(newTab);
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -169,22 +128,6 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
             </div>
-          </div>
-        )}
-
-        {activeTab === "search" && (
-          <div className="space-y-6">
-            <SearchShortcuts 
-              onShortcutSelect={(shortcut) => {
-                console.log("Shortcut selected:", shortcut);
-                // Could populate the search field with the shortcut
-              }}
-            />
-            <AdvancedSearch 
-              onResultsChange={(results) => {
-                console.log("Search results updated:", results.length, "people found");
-              }}
-            />
           </div>
         )}
 
