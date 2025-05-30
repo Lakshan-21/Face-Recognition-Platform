@@ -129,7 +129,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Only process if there are registered faces and randomly simulate detection
       const detectedFaces = [];
-      const hasDetection = Math.random() < 0.4; // 40% chance of detection
+      const hasDetection = Math.random() < 0.7; // 70% chance of detection for better tracking
       
       if (registrations.length > 0 && hasDetection) {
         // Randomly select a registered person for detection
@@ -149,8 +149,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           // Generate realistic bounding box coordinates for different positions
           const frameWidth = 640;
           const frameHeight = 480;
-          const faceWidth = 120;
-          const faceHeight = 95;
+          const faceWidth = 180; // Larger face width for better visibility
+          const faceHeight = 140; // Larger face height for better visibility
           
           // Random position across the frame
           const randomX = Math.floor(Math.random() * (frameWidth - faceWidth));
@@ -176,8 +176,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           // Generate realistic bounding box coordinates for different positions
           const frameWidth = 640;
           const frameHeight = 480;
-          const faceWidth = 120;
-          const faceHeight = 95;
+          const faceWidth = 180; // Larger face width for better visibility
+          const faceHeight = 140; // Larger face height for better visibility
           
           // Random position across the frame
           const randomX = Math.floor(Math.random() * (frameWidth - faceWidth));

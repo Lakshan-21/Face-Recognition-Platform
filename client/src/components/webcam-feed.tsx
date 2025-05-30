@@ -179,7 +179,7 @@ export default function WebcamFeed({ mode, onFaceDetected, isActive = true }: We
     if (isStreaming && mode === "registration") {
       intervalId = setInterval(processFaceDetection, 1000);
     } else if (isStreaming && mode === "recognition" && isActive) {
-      intervalId = setInterval(processFaceDetection, 3000); // 3 second intervals for recognition
+      intervalId = setInterval(processFaceDetection, 1000); // 1 second intervals for more responsive recognition
     }
 
     return () => {
