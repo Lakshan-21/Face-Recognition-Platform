@@ -26,8 +26,8 @@ export default function TabNavigation({ activeTab, onTabChange }: TabNavigationP
   ];
 
   return (
-    <nav className="bg-card border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 bg-[#000000]">
+    <nav className="bg-[#000000] border-b border-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex space-x-1 bg-muted p-1 rounded-full w-fit">
           {tabs.map((tab) => {
             const Icon = tab.icon;
