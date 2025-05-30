@@ -35,12 +35,17 @@ export default function TabNavigation({ activeTab, onTabChange }: TabNavigationP
               <Button
                 key={tab.id}
                 variant={activeTab === tab.id ? "default" : "ghost"}
-                className={`px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-200 ${
+                className={`px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-300 ${
                   activeTab === tab.id
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-muted-foreground hover:text-foreground hover:bg-background"
+                    ? "bg-[#1d9bf0] text-white shadow-lg transform scale-105 border-2 border-[#1d9bf0]"
+                    : "text-[#71767b] hover:text-white hover:bg-[#16181c] border-2 border-transparent"
                 }`}
                 onClick={() => onTabChange(tab.id)}
+                style={{
+                  backgroundColor: activeTab === tab.id ? '#1d9bf0' : 'transparent',
+                  color: activeTab === tab.id ? '#ffffff' : '#71767b',
+                  borderColor: activeTab === tab.id ? '#1d9bf0' : 'transparent'
+                }}
               >
                 <Icon className="w-4 h-4 mr-2" />
                 {tab.label}
