@@ -146,11 +146,9 @@ export default function FaceRegistrationForm() {
   return (
     <div className="space-y-6">
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <Label htmlFor="name">Person Name *</Label>
-          <div
-            style={{ backgroundColor: '#000000', padding: '1px', borderRadius: '6px' }}
-            className="bg-[#000000]">
+        <div className="mb-6">
+          <Label htmlFor="name" className="text-sm font-medium text-[#ffffff] mb-2 block">Person Name *</Label>
+          <div style={{ backgroundColor: '#000000', padding: '1px', borderRadius: '6px', marginTop: '8px' }}>
             <input
               id="name"
               placeholder="Enter full name"
@@ -177,9 +175,9 @@ export default function FaceRegistrationForm() {
           )}
         </div>
 
-        <div>
-          <Label htmlFor="role">Role</Label>
-          <div className="mt-1 relative">
+        <div className="mb-6">
+          <Label htmlFor="role" className="text-sm font-medium text-[#ffffff] mb-2 block">Role</Label>
+          <div className="mt-2 relative">
             <div
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className="flex items-center justify-between p-3 border border-gray-600 rounded-md cursor-pointer text-[#ffffff] hover:bg-gray-800 transition-colors duration-200 bg-[#000000]"
@@ -208,9 +206,9 @@ export default function FaceRegistrationForm() {
           </div>
         </div>
 
-        <div>
-          <Label htmlFor="department" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-[#ffffff]">Department (Optional)</Label>
-          <div style={{ backgroundColor: '#000000', padding: '1px', borderRadius: '6px' }}>
+        <div className="mb-6">
+          <Label htmlFor="department" className="text-sm font-medium text-[#ffffff] mb-2 block">Department (Optional)</Label>
+          <div style={{ backgroundColor: '#000000', padding: '1px', borderRadius: '6px', marginTop: '8px' }}>
             <input
               id="department"
               placeholder="e.g., Engineering, Marketing"
