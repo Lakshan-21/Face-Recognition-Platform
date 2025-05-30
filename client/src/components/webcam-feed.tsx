@@ -265,7 +265,7 @@ export default function WebcamFeed({ mode, onFaceDetected, isActive = true }: We
         )}
         
         {!isStreaming && (
-          <div className="absolute inset-0 flex items-center justify-center border-2 border-dashed border-gray-500">
+          <div className="absolute inset-0 flex items-center justify-center border-2 border-dashed border-gray-500 text-[#ffffff]">
             <div className="text-center text-gray-300">
               <Video className="w-16 h-16 mx-auto mb-3 opacity-60" />
               <p className="text-lg font-medium">Camera not active</p>
@@ -274,7 +274,6 @@ export default function WebcamFeed({ mode, onFaceDetected, isActive = true }: We
           </div>
         )}
       </div>
-      
       {/* Camera Controls */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
