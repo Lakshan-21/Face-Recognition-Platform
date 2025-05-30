@@ -11,7 +11,7 @@
   --popover-foreground: 255 255 255; /* #FFFFFF */
   --card: 22 24 28; /* #16181C - X's card background */
   --card-foreground: 255 255 255; /* #FFFFFF */
-  --border: 47 51 54; /* #2F3336 - X's borders */
+  --border: 113 118 123; /* #71767b - Custom border color */
   --input: 32 35 39; /* #202327 - X's input backgrounds */
   --primary: 255 255 255; /* #FFFFFF - White primary buttons */
   --primary-foreground: 0 0 0; /* #000000 - Black text on white */
@@ -176,14 +176,14 @@ button:not([role="tab"]):hover {
 input, textarea, select {
   background-color: #000000 !important;
   color: #E7E9EA !important;
-  border: 1px solid #333639 !important;
+  border: 1px solid #71767b !important;
   border-radius: 4px !important;
   padding: 12px !important;
   font-size: 17px !important;
 }
 
 input:focus, textarea:focus, select:focus {
-  border-color: #1D9BF0 !important;
+  border-color: #71767b !important;
   outline: none !important;
 }
 
@@ -252,7 +252,7 @@ div:not(.card) {
   --popover-foreground: 247 249 249; /* #F7F9F9 */
   --card: 22 24 28; /* #16181C - X's card background */
   --card-foreground: 247 249 249; /* #F7F9F9 */
-  --border: 47 51 54; /* #2F3336 - X's dark borders */
+  --border: 113 118 123; /* #71767b - Custom border color */
   --input: 22 24 28; /* #16181C - X's input backgrounds */
   --primary: 255 255 255; /* #FFFFFF - White primary in dark */
   --primary-foreground: 0 0 0; /* #000000 */
