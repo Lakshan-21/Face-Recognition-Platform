@@ -11,7 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-import { CheckCircle, Clock, User, AlertCircle } from "lucide-react";
+import { CheckCircle, Clock, User, AlertCircle, ChevronDown } from "lucide-react";
 
 const registrationSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -30,6 +30,8 @@ interface FaceData {
 export default function FaceRegistrationForm() {
   const [faceData, setFaceData] = useState<FaceData | null>(null);
   const [detectionStatus, setDetectionStatus] = useState<"waiting" | "detected" | "processing">("waiting");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedRole, setSelectedRole] = useState<string>("");
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -159,16 +161,31 @@ export default function FaceRegistrationForm() {
 
         <div>
           <Label htmlFor="role">Role (Optional)</Label>
-          <div className="mt-1 space-y-2">
-            {["employee", "visitor", "contractor", "intern"].map((role) => (
-              <div
-                key={role}
-                onClick={() => form.setValue("role", role)}
-                className="p-3 border border-gray-600 rounded-md cursor-pointer text-[#ffffff] bg-[#000000] hover:bg-gray-800 transition-colors duration-200"
-              >
-                {role.charAt(0).toUpperCase() + role.slice(1)}
+          <div className="mt-1 relative">
+            <div
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="flex items-center justify-between p-3 border border-gray-600 rounded-md cursor-pointer text-[#ffffff] bg-[#000000] hover:bg-gray-800 transition-colors duration-200"
+            >
+              <span>{selectedRole || "Select role"}</span>
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+            </div>
+            {isDropdownOpen && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-[#000000] border border-gray-600 rounded-md shadow-lg z-50">
+                {["employee", "visitor", "contractor", "intern"].map((role) => (
+                  <div
+                    key={role}
+                    onClick={() => {
+                      setSelectedRole(role.charAt(0).toUpperCase() + role.slice(1));
+                      form.setValue("role", role);
+                      setIsDropdownOpen(false);
+                    }}
+                    className="p-3 cursor-pointer text-[#ffffff] hover:bg-gray-800 transition-colors duration-200 first:rounded-t-md last:rounded-b-md"
+                  >
+                    {role.charAt(0).toUpperCase() + role.slice(1)}
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
         </div>
 
