@@ -246,12 +246,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       let response = "";
       const lowerMessage = message.toLowerCase();
 
-      if (lowerMessage.includes("last person registered") || lowerMessage.includes("most recent")) {
+      if (lowerMessage.includes("last") && (lowerMessage.includes("registered") || lowerMessage.includes("registration")) || lowerMessage.includes("most recent")) {
         const recent = await storage.getRecentFaceRegistrations(1);
         if (recent.length > 0) {
           const person = recent[0];
           const date = new Date(person.registeredAt).toLocaleString();
-          response = `The last person registered was ${person.name} on ${date}.`;
+          response = `The last registered user was ${person.name}, a ${person.role} in the ${person.department} department, registered on ${date}.`;
         } else {
           response = "No registrations found in the system yet.";
         }
