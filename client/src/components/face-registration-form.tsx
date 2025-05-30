@@ -148,7 +148,9 @@ export default function FaceRegistrationForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <Label htmlFor="name">Person Name *</Label>
-          <div style={{ backgroundColor: '#000000', padding: '1px', borderRadius: '6px' }}>
+          <div
+            style={{ backgroundColor: '#000000', padding: '1px', borderRadius: '6px' }}
+            className="bg-[#000000]">
             <input
               id="name"
               placeholder="Enter full name"
