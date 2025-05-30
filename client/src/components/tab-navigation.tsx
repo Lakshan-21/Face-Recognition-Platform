@@ -38,7 +38,7 @@ export default function TabNavigation({ activeTab, onTabChange }: TabNavigationP
                 style={{
                   backgroundColor: activeTab === tab.id ? '#1d9bf0' : '#2f3336',
                   color: activeTab === tab.id ? '#ffffff' : '#71767b',
-                  border: activeTab === tab.id ? '2px solid #1d9bf0' : '2px solid transparent',
+                  border: activeTab === tab.id ? '2px solid #1d9bf0' : '1px solid rgba(255, 255, 255, 0.2)',
                   borderRadius: '9999px',
                   padding: '10px 24px',
                   fontSize: '14px',
@@ -49,7 +49,8 @@ export default function TabNavigation({ activeTab, onTabChange }: TabNavigationP
                   boxShadow: activeTab === tab.id ? '0 4px 12px rgba(29, 155, 240, 0.3)' : 'none',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px'
+                  gap: '8px',
+                  outline: 'none'
                 }}
                 onMouseEnter={(e) => {
                   if (activeTab !== tab.id) {
