@@ -159,17 +159,17 @@ export default function FaceRegistrationForm() {
 
         <div>
           <Label htmlFor="role">Role (Optional)</Label>
-          <Select onValueChange={(value) => form.setValue("role", value)}>
-            <SelectTrigger className="mt-1">
-              <SelectValue placeholder="Select role" />
-            </SelectTrigger>
-            <SelectContent className="bg-[#000000] !bg-[#000000] border-gray-700">
-              <SelectItem value="employee" className="text-[#ffffff] !text-[#ffffff] hover:bg-gray-800 focus:bg-gray-800 data-[highlighted]:bg-gray-800 data-[highlighted]:text-[#ffffff]">Employee</SelectItem>
-              <SelectItem value="visitor" className="text-[#ffffff] !text-[#ffffff] hover:bg-gray-800 focus:bg-gray-800 data-[highlighted]:bg-gray-800 data-[highlighted]:text-[#ffffff]">Visitor</SelectItem>
-              <SelectItem value="contractor" className="text-[#ffffff] !text-[#ffffff] hover:bg-gray-800 focus:bg-gray-800 data-[highlighted]:bg-gray-800 data-[highlighted]:text-[#ffffff]">Contractor</SelectItem>
-              <SelectItem value="intern" className="text-[#ffffff] !text-[#ffffff] hover:bg-gray-800 focus:bg-gray-800 data-[highlighted]:bg-gray-800 data-[highlighted]:text-[#ffffff]">Intern</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="mt-1 space-y-2">
+            {["employee", "visitor", "contractor", "intern"].map((role) => (
+              <div
+                key={role}
+                onClick={() => form.setValue("role", role)}
+                className="p-3 border border-gray-600 rounded-md cursor-pointer text-[#ffffff] bg-[#000000] hover:bg-gray-800 transition-colors duration-200"
+              >
+                {role.charAt(0).toUpperCase() + role.slice(1)}
+              </div>
+            ))}
+          </div>
         </div>
 
         <div>
