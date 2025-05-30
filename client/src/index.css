@@ -13,7 +13,7 @@
   --card-foreground: 255 255 255; /* #FFFFFF */
   --border: 113 118 123; /* #71767b - Custom border color */
   --input: 32 35 39; /* #202327 - X's input backgrounds */
-  --primary: 26 140 216; /* #1a8cd8 - Custom blue color */
+  --primary: 29 155 240; /* #1d9bf0 - Twitter blue color */
   --primary-foreground: 255 255 255; /* #FFFFFF - White text on blue */
   --secondary: 47 51 54; /* #2F3336 - X's secondary buttons */
   --secondary-foreground: 255 255 255; /* #FFFFFF */
@@ -254,7 +254,7 @@ div:not(.card) {
   --card-foreground: 247 249 249; /* #F7F9F9 */
   --border: 113 118 123; /* #71767b - Custom border color */
   --input: 22 24 28; /* #16181C - X's input backgrounds */
-  --primary: 26 140 216; /* #1a8cd8 - Custom blue color */
+  --primary: 29 155 240; /* #1d9bf0 - Twitter blue color */
   --primary-foreground: 255 255 255; /* #FFFFFF - White text on blue */
   --secondary: 47 51 54; /* #2F3336 - X's hover states */
   --secondary-foreground: 247 249 249; /* #F7F9F9 */
