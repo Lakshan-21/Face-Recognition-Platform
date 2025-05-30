@@ -88,19 +88,33 @@ html, body {
 }
 
 /* Input field styling - force black background and white text */
-input[type="text"], input[type="email"], input[type="password"], input {
+input[type="text"], input[type="email"], input[type="password"], input, .input-field {
+  background: #000000 !important;
   background-color: #000000 !important;
   color: #ffffff !important;
   border: 1px solid #2F3336 !important;
   border-radius: 6px !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
 }
 
-input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input:focus {
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input:focus, .input-field:focus {
+  background: #000000 !important;
   background-color: #000000 !important;
   color: #ffffff !important;
   outline: none !important;
   border-color: #1D9BF0 !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
 }
+
+/* Override all possible input styling */
+input::-webkit-input-placeholder { color: #8B98A5 !important; }
+input::-moz-placeholder { color: #8B98A5 !important; }
+input:-ms-input-placeholder { color: #8B98A5 !important; }
+input::placeholder { color: #8B98A5 !important; }
 
 /* Button styling like X */
 button:not([role="tab"]) {

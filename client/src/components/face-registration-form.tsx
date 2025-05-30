@@ -152,8 +152,15 @@ export default function FaceRegistrationForm() {
             id="name"
             placeholder="Enter full name"
             {...form.register("name")}
-            className="flex h-10 w-full rounded-md border border-gray-600 px-3 py-2 text-base text-[#ffffff] placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm mt-1 bg-[#e8f0fe00]"
-            style={{ backgroundColor: '#000000', color: '#ffffff' }}
+            className="flex h-10 w-full rounded-md border border-gray-600 px-3 py-2 text-base placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm mt-1"
+            style={{ 
+              backgroundColor: '#000000 !important', 
+              color: '#ffffff !important',
+              background: '#000000 !important',
+              WebkitAppearance: 'none',
+              MozAppearance: 'none',
+              appearance: 'none'
+            }}
           />
           {form.formState.errors.name && (
             <p className="text-sm text-red-500 mt-1">{form.formState.errors.name.message}</p>
@@ -197,8 +204,15 @@ export default function FaceRegistrationForm() {
             id="department"
             placeholder="e.g., Engineering, Marketing"
             {...form.register("department")}
-            className="flex h-10 w-full rounded-md border border-gray-600 bg-[#000000] px-3 py-2 text-base text-[#ffffff] placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm mt-1"
-            style={{ backgroundColor: '#000000', color: '#ffffff' }}
+            className="flex h-10 w-full rounded-md border border-gray-600 px-3 py-2 text-base placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm mt-1"
+            style={{ 
+              backgroundColor: '#000000 !important', 
+              color: '#ffffff !important',
+              background: '#000000 !important',
+              WebkitAppearance: 'none',
+              MozAppearance: 'none',
+              appearance: 'none'
+            }}
           />
         </div>
 
