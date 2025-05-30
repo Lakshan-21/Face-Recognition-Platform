@@ -96,7 +96,7 @@ export default function LiveRecognition() {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="flex flex-col space-y-1.5 p-6 text-[#ffffff] bg-[#000000]">
           <CardTitle className="flex items-center justify-between">
             Live Recognition
             <div className="flex items-center space-x-4">
