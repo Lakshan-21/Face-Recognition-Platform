@@ -320,3 +320,57 @@ div:not(.card) {
 .webcam-overlay {
   background: linear-gradient(45deg, rgba(25, 118, 210, 0.1) 0%, rgba(76, 175, 80, 0.1) 100%);
 }
+
+/* Force all margins and borders to use #71767b instead of yellow */
+* {
+  border-color: #71767b !important;
+}
+
+/* Override any yellow/amber colors that might appear */
+.border-yellow-500,
+.border-yellow-400,
+.border-yellow-300,
+.border-amber-500,
+.border-amber-400,
+.border-amber-300,
+.text-yellow-500,
+.text-yellow-400,
+.text-amber-500,
+.text-amber-400,
+.bg-yellow-500,
+.bg-yellow-400,
+.bg-amber-500,
+.bg-amber-400 {
+  border-color: #71767b !important;
+  color: #71767b !important;
+  background-color: transparent !important;
+}
+
+/* Force body and html margins to use correct color */
+body, html {
+  border-color: #71767b !important;
+  outline-color: #71767b !important;
+}
+
+/* Override any focus states that might show yellow */
+*:focus {
+  border-color: #71767b !important;
+  outline-color: #71767b !important;
+}
+
+/* Override default browser focus styles */
+input:focus,
+button:focus,
+select:focus,
+textarea:focus {
+  border-color: #71767b !important;
+  outline: 1px solid #71767b !important;
+}
+
+/* Ensure all container elements use the correct border color */
+.container,
+.card,
+.border,
+[class*="border"] {
+  border-color: #71767b !important;
+}
