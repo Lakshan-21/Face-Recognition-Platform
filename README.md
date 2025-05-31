@@ -109,10 +109,14 @@ The application will be available at `http://localhost:5000`
 3. Confidence scores and bounding boxes will be displayed
 4. Unknown faces will be labeled as "Unknown"
 
+ ![Image Alt](https://github.com/Lakshan-21/Face-Recognition-Platform/blob/main/image.png?raw=true)
+ 
 ### Chat Interface
 1. Use the "Chat" tab to interact with the AI system
 2. Ask questions about recognition events and system data
 3. Get insights about registered users and detection statistics
+
+    ![Image Alt](https://github.com/Lakshan-21/Face-Recognition-Platform/blob/main/image.png?raw=true)
 
 ## Project Structure
 
@@ -196,10 +200,6 @@ The application uses the following main tables:
 3. Make your changes
 4. Add tests if applicable
 5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License.
 
 ---
 
