@@ -110,7 +110,7 @@ The application will be available at `http://localhost:5000`
 3. Confidence scores and bounding boxes will be displayed
 4. Unknown faces will be labeled as "Unknown"
 
-   ![Image Alt](https://github.com/Lakshan-21/Face-Recognition-Platform/blob/main/image.png?raw=true)
+   ![Image Alt](https://github.com/Lakshan-21/Face-Recognition-Platform/blob/main/image%20(3).png?raw=true)
    ![Image Alt](https://github.com/Lakshan-21/Face-Recognition-Platform/blob/main/image.png?raw=true)
  
 ### Chat Interface
