@@ -10,6 +10,48 @@ Explore the real-time prototype in action: [https://facerecognitionplatform.cc/]
 
 This platform provides a comprehensive face recognition solution that can detect, register, and identify faces in real-time using modern web technologies and machine learning algorithms.
 
+## System Architecture
+
+### Platform Overview
+
+The Katomaran Face Recognition Platform follows a modern, layered architecture designed for scalability, performance, and real-time processing capabilities.
+
+![Image Alt](https://github.com/Lakshan-21/Face-Recognition-Platform/blob/main/image%20(1).png?raw=true)
+
+### Architecture Components
+
+**Frontend Layer:**
+- React-based user interface with TypeScript for type safety
+- Real-time webcam integration and live face detection display
+- Responsive design with Twitter blue theming
+- WebSocket client for real-time updates
+
+**Backend API Layer:**
+- Express.js server with RESTful API endpoints
+- Authentication and session management
+- WebSocket server for live communication
+- Database abstraction layer with type-safe operations
+
+**AI/ML Processing Layer:**
+- Python-based face recognition service using industry-standard libraries
+- OpenCV for image processing and computer vision tasks
+- Face detection, encoding, and comparison algorithms
+- RAG (Retrieval-Augmented Generation) engine for intelligent chat responses
+
+**Data Persistence Layer:**
+- PostgreSQL database with Drizzle ORM
+- Structured data storage for users, face registrations, and events
+- Analytics and logging data with efficient indexing
+- Automatic data retention and cleanup policies
+
+### Data Flow
+
+1. **Face Registration:** Camera captures image → Frontend processes → API validates → Python service encodes → Database stores
+2. **Live Recognition:** Camera stream → Real-time detection → Face comparison → WebSocket broadcast → UI updates
+3. **Chat Interface:** User query → RAG engine processes → Context retrieval → Response generation → Display
+
+This architecture ensures high performance, scalability, and maintainability while providing accurate face recognition capabilities and intelligent user interactions.
+
 ## Features
 
 - **Real-time Face Detection**: Live camera feed with instant face detection
@@ -19,6 +61,52 @@ This platform provides a comprehensive face recognition solution that can detect
 - **Modern UI**: Dark mode interface with responsive design
 - **Real-time Statistics**: Track recognition events and system metrics
 
+## Implementation: Organized Logging in Live Recognition Panel
+
+### Event Tracking and Log Management
+
+The Katomaran Face Recognition Platform includes comprehensive logging capabilities for monitoring and reviewing recognition events in real-time.
+
+#### Logging Features
+
+**Real-time Event Tracking:**
+- Face detection events with timestamps
+- Recognition accuracy scores and confidence levels
+- User identification results (registered vs. unknown)
+- System performance metrics and processing times
+
+**Log Categories:**
+- **Detection Logs:** Face detection events with bounding box coordinates
+- **Recognition Logs:** User identification attempts and results
+- **Performance Logs:** Processing times and system resource usage
+- **Error Logs:** Failed recognition attempts and system errors
+- **Analytics Logs:** Statistical data for recognition patterns
+
+#### Implementation Details
+
+**Database Schema:**
+```sql
+-- Recognition Events Table
+recognition_events (
+  id: Primary Key
+  person_id: Foreign Key (nullable for unknown faces)
+  confidence: Decimal (0.0 - 1.0)
+  detection_time: Timestamp
+  bbox_coordinates: JSON Array
+  is_recognized: Boolean
+)
+
+-- System Logs Table
+system_logs (
+  id: Primary Key
+  level: String (INFO, WARNING, ERROR)
+  module: String (recognition, detection, api)
+  message: Text
+  timestamp: Timestamp
+  metadata: JSON
+)
+
+```
 ## Technology Stack
 
 ### Frontend
@@ -52,7 +140,7 @@ This platform provides a comprehensive face recognition solution that can detect
 ```bash
 git clone <repository-url>
 cd face-recognition-platform
-```
+
 
 ### 2. Install Dependencies
 
@@ -162,6 +250,36 @@ The application will be available at `http://localhost:5000`
 - `POST /api/chat` - Send chat message to AI system
 - `GET /api/chat/history` - Get chat history
 
+## Domain Integration with Cloudflare (.cc)
+
+### Custom Domain Setup
+
+To deploy your Katomaran Face Recognition Platform with a custom .cc domain through Cloudflare:
+
+#### Prerequisites
+- Active Cloudflare account
+- Custom .cc domain registered
+- Deployment platform with custom domain support
+
+#### Setup Steps
+
+1. **Configure DNS in Cloudflare:**
+   - Add a CNAME record pointing your domain to your deployment URL
+   - Set the record to "Proxied" (orange cloud) for Cloudflare's CDN benefits
+   - Example: `your-domain.cc` → `your-app-name.deployment-platform.app`
+
+2. **Update Deployment Settings:**
+   - Navigate to your project's deployment configuration
+   - Add your custom domain in the "Custom Domains" section
+   - Verify domain ownership through the provided verification process
+
+3. **Environment Configuration:**
+   ```bash
+   # Add to your .env file
+   CUSTOM_DOMAIN=your-domain.cc
+   ALLOWED_ORIGINS=your-domain.cc,localhost:5000
+
+   
 ## Configuration
 
 ### Face Recognition Settings
