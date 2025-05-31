@@ -101,6 +101,8 @@ The application will be available at `http://localhost:5000`
 3. Fill in your personal information (name, department, role)
 4. Click "Register Face" to save your profile
 
+   ![Image Alt](image_url)
+
 ### Live Recognition
 1. Switch to the "Recognition" tab
 2. The system will automatically detect and identify registered faces
