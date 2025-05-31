@@ -101,7 +101,7 @@ The application will be available at `http://localhost:5000`
 3. Fill in your personal information (name, department, role)
 4. Click "Register Face" to save your profile
 
-   ![Image Alt](image_url)
+   ![Image Alt](https://github.com/Lakshan-21/Face-Recognition-Platform/blob/main/image.png?raw=true)
 
 ### Live Recognition
 1. Switch to the "Recognition" tab
