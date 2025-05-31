@@ -16,7 +16,7 @@ This platform provides a comprehensive face recognition solution that can detect
 
 The Katomaran Face Recognition Platform follows a modern, layered architecture designed for scalability, performance, and real-time processing capabilities.
 
-![Image Alt](https://github.com/Lakshan-21/Face-Recognition-Platform/blob/main/image%20(1).png?raw=true)
+![Image Alt](https://github.com/Lakshan-21/Face-Recognition-Platform/blob/main/detailed-project-architecture.jpg?raw=true)
 
 ### Architecture Components
 
@@ -51,6 +51,16 @@ The Katomaran Face Recognition Platform follows a modern, layered architecture d
 3. **Chat Interface:** User query → RAG engine processes → Context retrieval → Response generation → Display
 
 This architecture ensures high performance, scalability, and maintainability while providing accurate face recognition capabilities and intelligent user interactions.
+
+## Live Demo & Video Walkthrough
+
+### Platform Demonstration
+
+Watch a comprehensive demonstration of the Katomaran Face Recognition Platform in action:
+
+[🎥 View Demo Video](YOUR_VIDEO_LINK_HERE)
+
+See the real-time face recognition system detecting and identifying registered users with high accuracy, the intelligent chat interface responding to queries, and the complete registration workflow from camera capture to database storage.
 
 ## Features
 
