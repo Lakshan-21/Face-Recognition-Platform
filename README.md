@@ -118,7 +118,7 @@ The application will be available at `http://localhost:5000`
 2. Ask questions about recognition events and system data
 3. Get insights about registered users and detection statistics
 
-   ![Image Alt](https://github.com/Lakshan-21/Face-Recognition-Platform/blob/main/image.png?raw=true)
+   ![Image Alt](https://github.com/Lakshan-21/Face-Recognition-Platform/blob/main/image%20(5).png?raw=true)
    ![Image Alt](https://github.com/Lakshan-21/Face-Recognition-Platform/blob/main/image.png?raw=true)
 
 ## Project Structure
