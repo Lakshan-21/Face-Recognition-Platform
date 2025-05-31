@@ -58,7 +58,7 @@ This architecture ensures high performance, scalability, and maintainability whi
 
 Watch a comprehensive demonstration of the Katomaran Face Recognition Platform in action:
 
-[🎥 View Demo Video](YOUR_VIDEO_LINK_HERE)
+[🎥 View Demo Video](https://drive.google.com/file/d/1IPJQoSvEH14UJmN1Z-k1y4TqryyoiNGv/view?usp=sharing)
 
 See the real-time face recognition system detecting and identifying registered users with high accuracy, the intelligent chat interface responding to queries, and the complete registration workflow from camera capture to database storage.
 
