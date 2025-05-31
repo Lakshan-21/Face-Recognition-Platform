@@ -2,6 +2,10 @@
 
 An advanced real-time face recognition system with intelligent detection capabilities and interactive user engagement features.
 
+## Real-time Deployed Application
+
+Explore the real-time prototype in action: [https://facerecognitionplatform.cc/]
+
 ## Overview
 
 This platform provides a comprehensive face recognition solution that can detect, register, and identify faces in real-time using modern web technologies and machine learning algorithms.
@@ -119,7 +123,7 @@ The application will be available at `http://localhost:5000`
 3. Get insights about registered users and detection statistics
 
    ![Image Alt](https://github.com/Lakshan-21/Face-Recognition-Platform/blob/main/image%20(5).png?raw=true)
-   ![Image Alt](https://github.com/Lakshan-21/Face-Recognition-Platform/blob/main/image.png?raw=true)
+   ![Image Alt](https://github.com/Lakshan-21/Face-Recognition-Platform/blob/main/image%20(6).png?raw=true)
 
 ## Project Structure
 
